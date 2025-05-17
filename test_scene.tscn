@@ -1,12 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://dwjx753r00y5e"]
+[gd_scene load_steps=5 format=3 uid="uid://dwjx753r00y5e"]
 
 [ext_resource type="PackedScene" uid="uid://dy0ywsrfkq6bc" path="res://car.tscn" id="1_ia1lp"]
+[ext_resource type="PackedScene" uid="uid://bc067s5j6kck0" path="res://marker_again.tscn" id="1_sasra"]
 [ext_resource type="PackedScene" uid="uid://b4qsje7cd1cav" path="res://trafficlight.tscn" id="2_sasra"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_coq8p"]
 
 [node name="TestScene" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00345349, 0)
+
+[node name="Node3D" parent="." instance=ExtResource("1_sasra")]
 
 [node name="Camera" type="Camera3D" parent="."]
 transform = Transform3D(0.742467, -0.242268, 0.624539, 0, 0.932311, 0.361657, -0.669882, -0.268519, 0.69221, 7.88442, 5.47815, 9.17816)
@@ -16,14 +19,15 @@ size = 6.714
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
-transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0, 0, 0)
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0.0716338, 0, 0)
 mesh = SubResource("PlaneMesh_coq8p")
 
 [node name="CharacterBody3D" parent="StaticBody3D" instance=ExtResource("1_ia1lp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.168232, 0.713152, 2.52886)
 
-[node name="StaticBody3D2" parent="." instance=ExtResource("2_sasra")]
+[node name="light" parent="." instance=ExtResource("2_sasra")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0503238, 0.00345349, 0.0631812)
+visible = false
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.79852, 0.601968, 0, -0.601968, 0.79852, 0, 8.73309, 12.8729)
+transform = Transform3D(1, 0, 0, 0, 0.79852, 0.601968, 0, -0.601968, 0.79852, -1.05718, 8.73309, 12.8729)
