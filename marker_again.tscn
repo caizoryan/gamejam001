@@ -11,17 +11,17 @@ data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0
 
 [node name="Node3D" type="Node3D"]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+[node name="body" type="StaticBody3D" parent="."]
 
-[node name="mesh" type="MeshInstance3D" parent="StaticBody3D"]
+[node name="mesh" type="MeshInstance3D" parent="body"]
 transform = Transform3D(0.473963, 0, 0, 0, 0.0766973, 0, 0, 0, 0.501616, 0, 0, 0)
 mesh = SubResource("BoxMesh_rutlb")
 surface_material_override/0 = SubResource("StandardMaterial3D_rutlb")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+[node name="collision" type="CollisionShape3D" parent="body"]
 transform = Transform3D(0.473963, 0, 0, 0, 0.0766973, 0, 0, 0, 0.501616, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_y87h7")
 script = ExtResource("2_y87h7")
 
-[connection signal="mouse_entered" from="StaticBody3D" to="StaticBody3D/CollisionShape3D" method="_mouse_entered"]
-[connection signal="mouse_exited" from="StaticBody3D" to="StaticBody3D/CollisionShape3D" method="_mouse_exited"]
+[connection signal="mouse_entered" from="body" to="body/collision" method="_mouse_entered"]
+[connection signal="mouse_exited" from="body" to="body/collision" method="_mouse_exited"]

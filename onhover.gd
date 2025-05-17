@@ -1,7 +1,12 @@
 extends Node3D
 
+
+
 var hovered: bool = false
 var active: bool = false
+
+signal activated
+
 var highlight_color: Color = Color(1.0,0.0,0,1.0)
 var base_color: Color = Color(0.0,0.0,0,1.0)
 
@@ -18,7 +23,9 @@ func _process(delta: float) -> void:
 		print("pressed, active:", active)
 		if (hovered): 
 			active = !active
-			if (active): 
+			if (active):
+				print("emitting")
+				activated.emit() 
 				highlight_color = Color.YELLOW
 				set_mesh_color(highlight_color)
 			else: 
