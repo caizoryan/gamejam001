@@ -21,6 +21,9 @@ func spawn(resource):
 	print("spawns to position: ", parent, "scene: ", scene)
 	scene.add_child(light_instance)
 	
+	var pos = Vector3(parent.position)
+	light_instance.position = pos
+	
 	close_menu()
 
 func _ready() -> void:
