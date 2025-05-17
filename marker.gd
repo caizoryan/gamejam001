@@ -1,15 +1,20 @@
 extends Node3D
-
-
-
+ 
 var hovered: bool = false
 var active: bool = false
 
 signal activated
 
+@export var menu: GridContainer 
+
 var highlight_color: Color = Color(1.0,0.0,0,1.0)
 var base_color: Color = Color(0.0,0.0,0,1.0)
 
+func _ready() -> void:
+	menu.connect("menu_exit", deactivate)
+
+func deactivate():
+	active = false
 func _mouse_entered() -> void:
 	hovered = true
 	set_mesh_color(highlight_color)

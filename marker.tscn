@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bc067s5j6kck0"]
+[gd_scene load_steps=6 format=3 uid="uid://bc067s5j6kck0"]
 
-[ext_resource type="Script" uid="uid://3vo3ne10805p" path="res://onhover.gd" id="2_y87h7"]
+[ext_resource type="Script" uid="uid://3vo3ne10805p" path="res://marker.gd" id="2_y87h7"]
+[ext_resource type="Script" uid="uid://oguqhx3y8a65" path="res://menu.gd" id="3_s7rqm"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_rutlb"]
 
@@ -18,10 +19,27 @@ transform = Transform3D(0.473963, 0, 0, 0, 0.0766973, 0, 0, 0, 0.501616, 0, 0, 0
 mesh = SubResource("BoxMesh_rutlb")
 surface_material_override/0 = SubResource("StandardMaterial3D_rutlb")
 
-[node name="collision" type="CollisionShape3D" parent="body"]
+[node name="collision" type="CollisionShape3D" parent="body" node_paths=PackedStringArray("menu")]
 transform = Transform3D(0.473963, 0, 0, 0, 0.0766973, 0, 0, 0, 0.501616, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_y87h7")
 script = ExtResource("2_y87h7")
+menu = NodePath("../../Control/menu")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="menu" type="GridContainer" parent="Control" node_paths=PackedStringArray("marker")]
+layout_mode = 0
+offset_left = 522.0
+offset_top = 327.0
+offset_right = 651.0
+offset_bottom = 375.0
+columns = 3
+script = ExtResource("3_s7rqm")
+marker = NodePath("../../body/collision")
 
 [connection signal="mouse_entered" from="body" to="body/collision" method="_mouse_entered"]
 [connection signal="mouse_exited" from="body" to="body/collision" method="_mouse_exited"]
