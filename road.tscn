@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5d3au75wpufh"]
+
+[ext_resource type="Script" uid="uid://blf5rlxnsfsjf" path="res://spawner.gd" id="1_x0d2t"]
+[ext_resource type="PackedScene" uid="uid://dy0ywsrfkq6bc" path="res://car.tscn" id="2_3veuu"]
+
+[sub_resource type="Curve3D" id="Curve3D_3veuu"]
+
+[node name="Road" type="Node3D" node_paths=PackedStringArray("PATH_FOLLOW")]
+script = ExtResource("1_x0d2t")
+CAR = ExtResource("2_3veuu")
+PATH_FOLLOW = NodePath("Path3D/PathFollow3D")
+
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(0.9057, 0, 0, 0, 0.9057, 0, 0, 0, 0.9057, -0.163134, 0.762042, 1.17084)
+curve = SubResource("Curve3D_3veuu")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(-0.823716, 0.325986, 0.463905, -1.49011e-08, 0.818181, -0.574941, -0.566989, -0.473589, -0.673957, 0.191762, -0.122986, -0.1156)
