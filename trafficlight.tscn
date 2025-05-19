@@ -2,7 +2,7 @@
 
 [sub_resource type="BoxMesh" id="BoxMesh_cmg1p"]
 
-[node name="StaticBody3D" type="StaticBody3D"]
+[node name="TrafficLight" type="StaticBody3D"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 
