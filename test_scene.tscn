@@ -37,7 +37,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00826108, 0, -0.0247779)
 [node name="Camera" type="Camera3D" parent="."]
 transform = Transform3D(0.742467, -0.242268, 0.624539, 0, 0.932311, 0.361657, -0.669882, -0.268519, 0.69221, 7.88442, 5.47815, 9.17816)
 projection = 1
-size = 6.714
+size = 6.755
 
 [node name="Plane" type="StaticBody3D" parent="."]
 
@@ -52,8 +52,7 @@ script = ExtResource("1_coq8p")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.79852, 0.601968, 0, -0.601968, 0.79852, 0, 8.73309, 12.8729)
 
-[node name="HorizontalRoad" parent="." node_paths=PackedStringArray("TRAFFIC_LIGHT") instance=ExtResource("4_coq8p")]
-TRAFFIC_LIGHT = NodePath("../TrafficLight")
+[node name="HorizontalRoad" parent="." instance=ExtResource("4_coq8p")]
 
 [node name="Path3D" parent="HorizontalRoad" index="0"]
 curve = SubResource("Curve3D_coq8p")
@@ -77,10 +76,9 @@ mesh = SubResource("SphereMesh_coq8p")
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -7.31945, -5.20023, -1.79766)
 shape = SubResource("SphereShape3D_2nij2")
 
-[node name="VerticalRoad" parent="." node_paths=PackedStringArray("TRAFFIC_LIGHT") instance=ExtResource("4_coq8p")]
+[node name="VerticalRoad" parent="." instance=ExtResource("4_coq8p")]
 CAR_DISTANCE = 3.0
 ROAD_DIRECTION = 1
-TRAFFIC_LIGHT = NodePath("../TrafficLight")
 
 [node name="Path3D" parent="VerticalRoad" index="0"]
 curve = SubResource("Curve3D_2nij2")
@@ -101,6 +99,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.77724, 0, 13.0851)
 [node name="CollisionShape3D" parent="Car" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0491695, 0.619167, -0.246745)
 
+[node name="car_pink" parent="Car" index="1"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[connection signal="light_changed" from="TrafficLight" to="HorizontalRoad" method="_on_traffic_light_light_changed"]
+[connection signal="light_changed" from="TrafficLight" to="VerticalRoad" method="_on_traffic_light_light_changed"]
 [connection signal="area_entered" from="VerticalRoad/CollisionBarrier" to="HorizontalRoad" method="_on_collision_barrier_area_entered"]
 [connection signal="body_entered" from="VerticalRoad/CollisionBarrier" to="VerticalRoad" method="_on_collision_barrier_body_entered"]
 

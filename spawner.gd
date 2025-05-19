@@ -4,7 +4,6 @@ extends Node3D
 @export var TIMER: Timer
 @export var PATH: Path3D
 @export var PATH_FOLLOW: PathFollow3D
-@export var COLLISION_AREA: Area3D
 
 # vars that can be controlled
 @export var SPAWN_WAIT: float = 0.1
@@ -16,29 +15,22 @@ extends Node3D
 @export var ROAD_DIRECTION: StateEnums.Direction
 @export var TRAFFIC_LIGHT: StaticBody3D
 
-# idk some shit I need
+# global vars
 var CAR_GROUP = Node3D.new()
 var RUN_CARS = false
 var CURR_TRAFFIC_DIR = null
 var SPAWN_CARS = false
 var INIT_POSITION = Vector3(0,0,0)
-var CHANGE_QUEUED = null
 
 func _ready() -> void:
 	PATH_FOLLOW.add_child(CAR_GROUP)
 	INIT_POSITION = PATH.curve.get_baked_points()[0]
 	TIMER.timeout.connect(_on_timer_timeout)
 	TRAFFIC_LIGHT.connect("light_changed", handle_light_change)
-	COLLISION_AREA.area_entered.connect(handle_area_entered)
-
-func handle_area_entered():
-	print("hi")
 
 func handle_light_change(new_dir):
-	if CURR_TRAFFIC_DIR:
-		CHANGE_QUEUED = new_dir
-	else:
-		CURR_TRAFFIC_DIR = new_dir
+	print("consumed direction change to", new_dir)
+	CURR_TRAFFIC_DIR = new_dir
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.is_released() and ROAD_DIRECTION == CURR_TRAFFIC_DIR:
