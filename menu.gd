@@ -43,6 +43,12 @@ func create_btn(item)->Button:
 	return btn
 
 func open_menu()->void:
+	var pos = get_viewport().get_mouse_position()
+	var rect = self.get_rect()
+	pos.x -= rect.size.x/2
+	pos.y -= rect.size.y-25
+	
+	self.set_position(pos)
 	self.visible = true
 
 func close_menu() -> void:

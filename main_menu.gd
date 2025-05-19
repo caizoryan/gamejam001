@@ -1,10 +1,13 @@
 extends Control
 
+@export var start_btn : TextureButton
 func _ready():
 	# add a button
-	var btn = create_btn({"name": "chane scene", "action": load_main_scene, "filename":"start"})
-	self.add_child(btn)
-	print("ok workd")
+	#var btn = create_btn({"name": "chane scene", "action": load_main_scene, "filename":"start"})
+	#self.add_child(btn)
+	#print("ok workd")
+	
+	start_btn.pressed.connect(load_main_scene)
 	
 	pass;
 

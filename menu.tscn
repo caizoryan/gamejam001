@@ -1,14 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://7i8utlbhim2d"]
+[gd_scene load_steps=4 format=3 uid="uid://7i8utlbhim2d"]
 
-[ext_resource type="Script" uid="uid://cyovh30fy2h38" path="res://change_scene.gd" id="1_lti8b"]
+[ext_resource type="Script" uid="uid://cyovh30fy2h38" path="res://main_menu.gd" id="1_lti8b"]
+[ext_resource type="Texture2D" uid="uid://buuchvchgrx2o" path="res://assets/buttons/start.png" id="2_mae5d"]
+[ext_resource type="Texture2D" uid="uid://bhhukbj5rcy7i" path="res://assets/buttons/start_hover.png" id="3_4hy44"]
 
 [node name="Menu" type="Node2D"]
 
-[node name="Control" type="Control" parent="."]
+[node name="Control" type="Control" parent="." node_paths=PackedStringArray("start_btn")]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 849.0
 offset_top = 503.0
-offset_right = 1006.0
-offset_bottom = 560.0
+offset_right = 1377.0
+offset_bottom = 614.0
 script = ExtResource("1_lti8b")
+start_btn = NodePath("TextureButton")
+
+[node name="TextureButton" type="TextureButton" parent="Control"]
+layout_mode = 0
+offset_left = -97.0
+offset_top = -9.0
+offset_right = 398.0
+offset_bottom = 87.0
+texture_normal = ExtResource("2_mae5d")
+texture_hover = ExtResource("3_4hy44")
