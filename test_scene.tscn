@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dwjx753r00y5e"]
+[gd_scene load_steps=12 format=3 uid="uid://dwjx753r00y5e"]
 
 [ext_resource type="PackedScene" uid="uid://b4fhdplgvj0or" path="res://assets/testscene.glb" id="1_8pr8v"]
 [ext_resource type="Script" uid="uid://buui765l8kko5" path="res://traffic_light_controller.gd" id="1_coq8p"]
@@ -16,10 +16,6 @@ _data = {
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
-
-[sub_resource type="SphereMesh" id="SphereMesh_coq8p"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_2nij2"]
 
 [sub_resource type="Curve3D" id="Curve3D_2nij2"]
 _data = {
@@ -47,14 +43,14 @@ size = 55.867
 near = 1.927
 far = 869.15
 
+[node name="car_textured" parent="." instance=ExtResource("3_buypi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.606897, 0.0579077, -3.12073)
+
 [node name="Plane" type="StaticBody3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Plane"]
 transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -4.36306e-05, -0.0417376, 0.0233889)
 mesh = SubResource("PlaneMesh_coq8p")
-
-[node name="car_textured" parent="Plane" instance=ExtResource("3_buypi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.606897, 0.0579077, -3.12073)
 
 [node name="TrafficLight" parent="." instance=ExtResource("2_sasra")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0505892, 0.00345349, -0.0769851)
@@ -76,16 +72,6 @@ transform = Transform3D(0.33408, 0, 0, 0, 1, 0, 0, 0, -0.0437911, -7.55703, 0, 1
 
 [node name="CollisionShape3D" parent="HorizontalRoad/CollisionBarrier" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.22222, 0, -5.24038)
-
-[node name="Node3D" type="Node3D" parent="."]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 4.98293, -0.143633, -0.878004)
-mesh = SubResource("SphereMesh_coq8p")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/MeshInstance3D"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -7.31945, -5.20023, -1.79766)
-shape = SubResource("SphereShape3D_2nij2")
 
 [node name="VerticalRoad" parent="." instance=ExtResource("4_coq8p")]
 CAR_DISTANCE = 3.0
