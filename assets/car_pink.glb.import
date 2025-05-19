@@ -3,7 +3,11 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
+<<<<<<< HEAD
 uid="uid://dvn4cso363hh2"
+=======
+uid="uid://c2hvy15i21elp"
+>>>>>>> main
 path="res://.godot/imported/car_pink.glb-001cd00a359055fb887ed04979b89b8f.scn"
 
 [deps]

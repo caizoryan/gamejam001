@@ -1,0 +1,100 @@
+[gd_scene load_steps=5 format=3 uid="uid://c5d3au75wpufh"]
+
+[ext_resource type="PackedScene" uid="uid://dy0ywsrfkq6bc" path="res://car.tscn" id="2_3veuu"]
+
+[sub_resource type="GDScript" id="GDScript_yp5lu"]
+script/source = "extends Node3D
+
+# already linked in object
+@export var TIMER: Timer
+@export var PATH: Path3D
+@export var PATH_FOLLOW: PathFollow3D
+@export var COLLISION_AREA: Area3D
+
+# vars that can be controlled
+@export var SPAWN_WAIT: float = 0.1
+@export var CAR_DISTANCE: float = 0.5
+@export var SPEED: float = 5
+
+# references that need to manually be set
+@export var CAR: PackedScene
+@export var ROAD_DIRECTION: StateEnums.Direction
+
+# global vars
+var CAR_GROUP = Node3D.new()
+var RUN_CARS = false
+var CURR_TRAFFIC_DIR = null
+var SPAWN_CARS = false
+var INIT_POSITION = Vector3(0,0,0)
+var CHANGE_QUEUED = null
+
+func _ready() -> void:
+	PATH_FOLLOW.add_child(CAR_GROUP)
+	INIT_POSITION = PATH.curve.get_baked_points()[0]
+	TIMER.timeout.connect(_on_timer_timeout)
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey and event.is_released() and ROAD_DIRECTION == CURR_TRAFFIC_DIR:
+		match event.keycode:
+			KEY_E:
+				RUN_CARS = !RUN_CARS
+			KEY_W:
+				print(\"should spawn?\")
+				SPAWN_CARS = !SPAWN_CARS
+				if SPAWN_CARS:
+					TIMER.start(1.0)
+				else:
+					TIMER.stop()
+
+func _process(delta: float) -> void:
+	if RUN_CARS:
+		PATH_FOLLOW.progress += SPEED * delta
+		if PATH_FOLLOW.progress_ratio == 1.0:
+			for node in CAR_GROUP.get_children():
+				CAR_GROUP.remove_child(node)
+				node.queue_free()
+			PATH_FOLLOW.progress_ratio = 0.0
+
+func _on_timer_timeout():
+	var new_car = CAR.instantiate()
+	var num_children = CAR_GROUP.get_child_count()
+	new_car.position = INIT_POSITION - Vector3(Vector3(0,0,-CAR_DISTANCE * num_children))
+	CAR_GROUP.add_child(new_car)  
+
+func _on_traffic_light_light_changed(new_dir) -> void:
+	print(\"consumed \", new_dir, \" by\", ROAD_DIRECTION)
+	CURR_TRAFFIC_DIR = new_dir
+"
+
+[sub_resource type="Curve3D" id="Curve3D_3veuu"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0),
+"tilts": PackedFloat32Array(0)
+}
+point_count = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3veuu"]
+size = Vector3(15.3566, 1.09766, 15.1795)
+
+[node name="Road" type="Node3D" node_paths=PackedStringArray("TIMER", "PATH", "PATH_FOLLOW", "COLLISION_AREA")]
+script = SubResource("GDScript_yp5lu")
+TIMER = NodePath("Timer")
+PATH = NodePath("Path3D")
+PATH_FOLLOW = NodePath("Path3D/PathFollow3D")
+COLLISION_AREA = NodePath("CollisionBarrier")
+CAR = ExtResource("2_3veuu")
+
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(0.9057, 0, 0, 0, 0.9057, 0, 0, 0, 0.9057, -0.163134, 0.762042, 1.17084)
+curve = SubResource("Curve3D_3veuu")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(-0.247107, 0.235186, 0.940004, -7.45052e-09, 0.970084, -0.242714, -0.96898, -0.0599767, -0.239718, 2.29339, -0.521351, -0.0994022)
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="CollisionBarrier" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CollisionBarrier"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.394775, 0, -5.24038)
+shape = SubResource("BoxShape3D_3veuu")
