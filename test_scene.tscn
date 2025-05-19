@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dwjx753r00y5e"]
+[gd_scene load_steps=12 format=3 uid="uid://dwjx753r00y5e"]
 
 [ext_resource type="Script" uid="uid://buui765l8kko5" path="res://traffic_light_controller.gd" id="1_coq8p"]
 [ext_resource type="PackedScene" uid="uid://dy0ywsrfkq6bc" path="res://car.tscn" id="1_ia1lp"]
@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://b4qsje7cd1cav" path="res://trafficlight.tscn" id="2_sasra"]
 [ext_resource type="PackedScene" uid="uid://dr62tthci7cn8" path="res://assets/car_textured.glb" id="3_buypi"]
 [ext_resource type="Script" uid="uid://b3ajcxcuyjnri" path="res://car_movement.gd" id="3_sasra"]
-[ext_resource type="Script" uid="uid://cyovh30fy2h38" path="res://change_scene.gd" id="7_8pr8v"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_coq8p"]
 
@@ -90,10 +89,3 @@ mesh = SubResource("SphereMesh_coq8p")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/MeshInstance3D"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -7.31945, -5.20023, -1.79766)
 shape = SubResource("SphereShape3D_2nij2")
-
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 157.0
-offset_bottom = 57.0
-script = ExtResource("7_8pr8v")
