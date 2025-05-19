@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cyij0nfk4hhsx"]
+
+[ext_resource type="Script" uid="uid://blf5rlxnsfsjf" path="res://spawner.gd" id="1_yp5lu"]
+[ext_resource type="PackedScene" uid="uid://c5d3au75wpufh" path="res://road.tscn" id="2_ttk4a"]
+
+[node name="Spawner" type="Node3D"]
+script = ExtResource("1_yp5lu")
+
+[node name="Road" parent="." instance=ExtResource("2_ttk4a")]
+SPEED = 10.0
