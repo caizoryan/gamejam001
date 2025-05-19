@@ -1,31 +1,32 @@
-[gd_scene load_steps=10 format=3 uid="uid://dwjx753r00y5e"]
+[gd_scene load_steps=11 format=3 uid="uid://dwjx753r00y5e"]
 
 [ext_resource type="Script" uid="uid://buui765l8kko5" path="res://traffic_light_controller.gd" id="1_coq8p"]
-[ext_resource type="PackedScene" uid="uid://dy0ywsrfkq6bc" path="res://car.tscn" id="1_ia1lp"]
 [ext_resource type="PackedScene" uid="uid://bc067s5j6kck0" path="res://marker.tscn" id="1_sasra"]
 [ext_resource type="PackedScene" uid="uid://b4qsje7cd1cav" path="res://trafficlight.tscn" id="2_sasra"]
-[ext_resource type="Script" uid="uid://b3ajcxcuyjnri" path="res://car_movement.gd" id="3_sasra"]
+[ext_resource type="PackedScene" uid="uid://c5d3au75wpufh" path="res://road.tscn" id="4_coq8p"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_coq8p"]
 
 [sub_resource type="Curve3D" id="Curve3D_coq8p"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 1, 0, 7.931, 0, 0, 0, 0, 0, 0, 1, 0, -6.889),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, -7),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
-[sub_resource type="Curve3D" id="Curve3D_sasra"]
-bake_interval = 25.0
-_data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 3.189, 0, 0, 0, 0, 0, 0, 0, 0, -0.408265, 0, 0.525532, 0, 0, 0, 0, 0, 0, -1.07763, 0, 3.00126, 0, 0, 0, 0, 0, 0, -1.09636, 0, 7.29546),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
-}
-point_count = 5
-
 [sub_resource type="SphereMesh" id="SphereMesh_coq8p"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_2nij2"]
+
+[sub_resource type="Curve3D" id="Curve3D_2nij2"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, -4, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_coq8p"]
+size = Vector3(1, 1, 0.930542)
 
 [node name="Tutorial" type="Node3D"]
 
@@ -50,31 +51,24 @@ script = ExtResource("1_coq8p")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.79852, 0.601968, 0, -0.601968, 0.79852, 0, 8.73309, 12.8729)
 
-[node name="RoadParent" type="Node" parent="." node_paths=PackedStringArray("TRAFFIC_LIGHT", "CARS")]
-script = ExtResource("3_sasra")
+[node name="HorizontalRoad" parent="." node_paths=PackedStringArray("TRAFFIC_LIGHT") instance=ExtResource("4_coq8p")]
+SPAWN_WAIT = 0.1
+CAR_DISTANCE = 0.5
+SPEED = 5.0
+ROAD_DIRECTION = 0
 TRAFFIC_LIGHT = NodePath("../TrafficLight")
-CARS = [NodePath("LeftRightRoad/PathFollow3D"), NodePath("UDTurnRoad/PathFollow3D")]
 
-[node name="LeftRightRoad" type="Path3D" parent="RoadParent"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.019, 0, 0.043746)
+[node name="Path3D" parent="HorizontalRoad" index="0"]
 curve = SubResource("Curve3D_coq8p")
 
-[node name="PathFollow3D" type="PathFollow3D" parent="RoadParent/LeftRightRoad"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 7.931)
-rotation_mode = 0
+[node name="PathFollow3D" parent="HorizontalRoad/Path3D" index="0"]
+transform = Transform3D(0.999992, 0, 0, 0, 0.999986, 0, 0, 0, 0.999991, 0, 0, 4)
 
-[node name="Car" parent="RoadParent/LeftRightRoad/PathFollow3D" instance=ExtResource("1_ia1lp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+[node name="CollisionBarrier" parent="HorizontalRoad" index="2"]
+transform = Transform3D(0.33408, 0, 0, 0, 1, 0, 0, 0, -0.0437911, -7.55703, 0, 1.57131)
 
-[node name="UDTurnRoad" type="Path3D" parent="RoadParent"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
-curve = SubResource("Curve3D_sasra")
-
-[node name="PathFollow3D" type="PathFollow3D" parent="RoadParent/UDTurnRoad"]
-transform = Transform3D(-4.37111e-08, 0, 0.999994, 0, 0.999999, 0, -0.999994, 0, -4.37111e-08, 7, 0, 0)
-rotation_mode = 2
-
-[node name="TurnCar" parent="RoadParent/UDTurnRoad/PathFollow3D" instance=ExtResource("1_ia1lp")]
+[node name="CollisionShape3D" parent="HorizontalRoad/CollisionBarrier" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.22222, 0, -5.24038)
 
 [node name="Node3D" type="Node3D" parent="."]
 
@@ -85,3 +79,29 @@ mesh = SubResource("SphereMesh_coq8p")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/MeshInstance3D"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -7.31945, -5.20023, -1.79766)
 shape = SubResource("SphereShape3D_2nij2")
+
+[node name="VerticalRoad" parent="." node_paths=PackedStringArray("TRAFFIC_LIGHT") instance=ExtResource("4_coq8p")]
+SPAWN_WAIT = 0.1
+CAR_DISTANCE = 0.5
+SPEED = 5.0
+ROAD_DIRECTION = 1
+TRAFFIC_LIGHT = NodePath("../TrafficLight")
+
+[node name="Path3D" parent="VerticalRoad" index="0"]
+curve = SubResource("Curve3D_2nij2")
+
+[node name="PathFollow3D" parent="VerticalRoad/Path3D" index="0"]
+transform = Transform3D(-4.3711e-08, 0, 0.999991, 0, 0.999986, 0, -0.999992, 0, -4.3711e-08, 4, 0, 0)
+
+[node name="CollisionBarrier" parent="VerticalRoad" index="2"]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+
+[node name="CollisionShape3D" parent="VerticalRoad/CollisionBarrier" index="0"]
+transform = Transform3D(1.00006, 0, 0, 0, 1, 0, 0, 0, 1.00006, 0, 0, -0.505006)
+shape = SubResource("BoxShape3D_coq8p")
+
+[connection signal="area_entered" from="VerticalRoad/CollisionBarrier" to="HorizontalRoad" method="_on_collision_barrier_area_entered"]
+[connection signal="body_entered" from="VerticalRoad/CollisionBarrier" to="VerticalRoad" method="_on_collision_barrier_body_entered"]
+
+[editable path="HorizontalRoad"]
+[editable path="VerticalRoad"]
