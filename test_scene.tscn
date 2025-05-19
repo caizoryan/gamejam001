@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://dwjx753r00y5e"]
+[gd_scene load_steps=13 format=3 uid="uid://dwjx753r00y5e"]
 
 [ext_resource type="Script" uid="uid://buui765l8kko5" path="res://traffic_light_controller.gd" id="1_coq8p"]
 [ext_resource type="PackedScene" uid="uid://dy0ywsrfkq6bc" path="res://car.tscn" id="1_ia1lp"]
 [ext_resource type="PackedScene" uid="uid://bc067s5j6kck0" path="res://marker.tscn" id="1_sasra"]
 [ext_resource type="PackedScene" uid="uid://b4qsje7cd1cav" path="res://trafficlight.tscn" id="2_sasra"]
-[ext_resource type="PackedScene" uid="uid://c5d3au75wpufh" path="res://road.tscn" id="4_coq8p"]
+[ext_resource type="PackedScene" uid="uid://dr62tthci7cn8" path="res://assets/car_textured.glb" id="3_buypi"]
+[ext_resource type="PackedScene" path="res://road.tscn" id="4_coq8p"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_coq8p"]
 
@@ -101,9 +102,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.77724, 0, 13.0851)
 
 [node name="CollisionShape3D" parent="Car" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0491695, 0.619167, -0.246745)
-
-[node name="car_pink" parent="Car" index="1"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [connection signal="light_changed" from="TrafficLight" to="HorizontalRoad" method="_on_traffic_light_light_changed"]
 [connection signal="light_changed" from="TrafficLight" to="VerticalRoad" method="_on_traffic_light_light_changed"]

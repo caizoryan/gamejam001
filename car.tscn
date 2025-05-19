@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dy0ywsrfkq6bc"]
 
-[ext_resource type="PackedScene" uid="uid://c2hvy15i21elp" path="res://assets/car_pink.glb" id="1_7822p"]
+[ext_resource type="PackedScene" uid="uid://cypjqtxwof0fw" path="res://assets/car_pink.glb" id="1_7822p"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7822p"]
 size = Vector3(1.36035, 1, 2.51997)

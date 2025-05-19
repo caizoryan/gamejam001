@@ -3,11 +3,7 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-<<<<<<< HEAD
-uid="uid://b406he4ni50jh"
-=======
-uid="uid://c4tlodt6gi0b4"
->>>>>>> main
+uid="uid://csp2qsmpqsxiu"
 path="res://.godot/imported/car_untextured.glb-9c4755596ccc2eb2068fc55129eb2649.scn"
 
 [deps]
@@ -37,5 +33,5 @@ animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={}
-gltf/naming_version=1
+gltf/naming_version=0
 gltf/embedded_image_handling=1
