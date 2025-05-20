@@ -27,7 +27,7 @@ func spawn(resource):
 	close_menu()
 
 func _ready() -> void:
-	print("LightMarker: ", marker)
+	#print("LightMarker: ", marker)
 	self.visible = false
 	
 	for i in buttons:

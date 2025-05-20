@@ -29,7 +29,7 @@ func _ready() -> void:
 	TRAFFIC_LIGHT.connect("light_changed", handle_light_change)
 
 func handle_light_change(new_dir):
-	print("consumed direction change to", new_dir)
+	#print("consumed direction change to", new_dir)
 	CURR_TRAFFIC_DIR = new_dir
 
 func _input(event: InputEvent) -> void:
@@ -56,5 +56,5 @@ func _process(delta: float) -> void:
 func _on_timer_timeout():
 	var new_car = CAR.instantiate()
 	var num_children = CAR_GROUP.get_child_count()
-	new_car.position = INIT_POSITION - Vector3(Vector3(0,0,-CAR_DISTANCE * num_children))
+	new_car.position = INIT_POSITION - Vector3(Vector3(0, 0, CAR_DISTANCE * num_children))
 	CAR_GROUP.add_child(new_car)  
