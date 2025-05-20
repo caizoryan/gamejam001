@@ -1,15 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://dwjx753r00y5e"]
+[gd_scene load_steps=14 format=3 uid="uid://dwjx753r00y5e"]
 
 [ext_resource type="PackedScene" uid="uid://b4fhdplgvj0or" path="res://assets/testscene.glb" id="1_8pr8v"]
 [ext_resource type="Script" uid="uid://buui765l8kko5" path="res://traffic_light_controller.gd" id="1_coq8p"]
 [ext_resource type="PackedScene" uid="uid://dy0ywsrfkq6bc" path="res://car.tscn" id="1_ia1lp"]
 [ext_resource type="PackedScene" uid="uid://bc067s5j6kck0" path="res://marker.tscn" id="1_sasra"]
 [ext_resource type="PackedScene" uid="uid://b4qsje7cd1cav" path="res://trafficlight.tscn" id="2_sasra"]
-[ext_resource type="Script" uid="uid://g5eoiw750a1n" path="res://area_3d.gd" id="4_buypi"]
 [ext_resource type="PackedScene" uid="uid://11l6gq0gsqrm" path="res://road.tscn" id="4_coq8p"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_njel3"]
-size = Vector3(5.12041, 4.59558, 41.6978)
+[ext_resource type="Script" uid="uid://c4os3vhaeqgol" path="res://pedestrian_follow.gd" id="7_buypi"]
+[ext_resource type="PackedScene" uid="uid://cktr3xk3eikwy" path="res://pedestrian.tscn" id="8_buypi"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_coq8p"]
 
@@ -27,6 +25,18 @@ _data = {
 }
 point_count = 2
 
+[sub_resource type="Curve3D" id="Curve3D_njel3"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0.839, 0, -7.67018, 0, 0, 0, 0, 0, 0, 0.839, 0, 0.523251),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="LabelSettings" id="LabelSettings_buypi"]
+font_size = 38
+font_color = Color(1, 0, 0.313726, 1)
+
 [node name="Tutorial" type="Node3D"]
 
 [node name="testscene" parent="." instance=ExtResource("1_8pr8v")]
@@ -36,18 +46,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0488161, 9.53674e-07, -0.16
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00826108, 0, -0.0247779)
 
 [node name="Camera" type="Camera3D" parent="."]
-transform = Transform3D(0.742467, -0.146507, 0.653665, -1.49012e-08, 0.975791, 0.218705, -0.669882, -0.162382, 0.724493, 18.3508, 10.5491, 17.4008)
-size = 25.098
+transform = Transform3D(0.569906, -0.305161, 0.762944, -0.00635496, 0.926819, 0.375454, -0.821685, -0.218823, 0.526261, 23.5276, 13.923, 16.5398)
+projection = 1
+size = 18.589
 near = 1.927
 far = 869.15
-
-[node name="Area3D" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15.7602)
-script = ExtResource("4_buypi")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.390116, 1.90454, -16.3451)
-shape = SubResource("BoxShape3D_njel3")
 
 [node name="Plane" type="StaticBody3D" parent="."]
 
@@ -59,11 +62,16 @@ mesh = SubResource("PlaneMesh_coq8p")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0505892, 0.00345349, -0.0769851)
 script = ExtResource("1_coq8p")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="light0" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.835357, 0.0878685, 0.54264, -0.181057, 0.97604, 0.120677, -0.519035, -0.199058, 0.831251, 1.91524, 10.6999, 16.1237)
 light_energy = 0.607
 
+[node name="light1" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.358654, 0.755116, -0.548788, 0.0854545, 0.611991, 0.786234, 0.929551, 0.23509, -0.284021, -19.6172, 17.3261, -6.15288)
+light_energy = 0.2
+
 [node name="HorizontalRoad" parent="." instance=ExtResource("4_coq8p")]
+CAR_DISTANCE = 3.0
 
 [node name="Path3D" parent="HorizontalRoad" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -71,10 +79,6 @@ curve = SubResource("Curve3D_coq8p")
 
 [node name="PathFollow3D" parent="HorizontalRoad/Path3D" index="0"]
 transform = Transform3D(0.999992, 0, 0, 0, 0.999986, 0, 0, 0, 0.999991, 0, 0, 24.3837)
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="HorizontalRoad"]
-transform = Transform3D(-0.358654, 0.755115, -0.548788, 0.0854545, 0.611991, 0.786234, 0.929551, 0.23509, -0.284021, -19.6172, 17.3261, -6.15288)
-light_energy = 0.2
 
 [node name="VerticalRoad" parent="." instance=ExtResource("4_coq8p")]
 CAR_DISTANCE = 3.0
@@ -93,7 +97,35 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.77724, 0, 13.0851)
 [node name="CollisionShape3D" parent="Car" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0491695, 0.619167, -0.246745)
 
-[connection signal="body_entered" from="Area3D" to="Area3D" method="_on_body_entered"]
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(-0.0169463, 0, -0.999856, 0, 1, 0, 0.999856, 0, -0.0169463, -4.04327, 0, 3.38513)
+curve = SubResource("Curve3D_njel3")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(0.999997, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0.839, 0, -7.67018)
+rotation_mode = 0
+script = ExtResource("7_buypi")
+
+[node name="Pedestrian" parent="Path3D/PathFollow3D" node_paths=PackedStringArray("winmessage") instance=ExtResource("8_buypi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0349112, -1.57884, 1.17187)
+winmessage = NodePath("../../../Win")
+
+[node name="Win" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Win"]
+layout_mode = 0
+offset_left = 846.0
+offset_top = 539.0
+offset_right = 1043.0
+offset_bottom = 592.0
+text = "YOU WON!"
+label_settings = SubResource("LabelSettings_buypi")
+
 [connection signal="light_changed" from="TrafficLight" to="HorizontalRoad" method="_on_traffic_light_light_changed"]
 [connection signal="light_changed" from="TrafficLight" to="VerticalRoad" method="_on_traffic_light_light_changed"]
 

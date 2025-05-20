@@ -26,7 +26,8 @@ func _ready() -> void:
 	PATH_FOLLOW.add_child(CAR_GROUP)
 	INIT_POSITION = PATH.curve.get_baked_points()[0]
 	TIMER.timeout.connect(_on_timer_timeout)
-	TRAFFIC_LIGHT.connect("light_changed", handle_light_change)
+	if TRAFFIC_LIGHT:
+		TRAFFIC_LIGHT.connect("light_changed", handle_light_change)
 
 func handle_light_change(new_dir):
 	#print("consumed direction change to", new_dir)
