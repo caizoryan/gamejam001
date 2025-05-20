@@ -1,11 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://dwjx753r00y5e"]
+[gd_scene load_steps=12 format=3 uid="uid://dwjx753r00y5e"]
 
 [ext_resource type="PackedScene" uid="uid://b4fhdplgvj0or" path="res://assets/testscene.glb" id="1_8pr8v"]
 [ext_resource type="Script" uid="uid://buui765l8kko5" path="res://traffic_light_controller.gd" id="1_coq8p"]
 [ext_resource type="PackedScene" uid="uid://dy0ywsrfkq6bc" path="res://car.tscn" id="1_ia1lp"]
 [ext_resource type="PackedScene" uid="uid://bc067s5j6kck0" path="res://marker.tscn" id="1_sasra"]
 [ext_resource type="PackedScene" uid="uid://b4qsje7cd1cav" path="res://trafficlight.tscn" id="2_sasra"]
-[ext_resource type="PackedScene" uid="uid://dr62tthci7cn8" path="res://assets/car_textured.glb" id="3_buypi"]
 [ext_resource type="Script" uid="uid://g5eoiw750a1n" path="res://area_3d.gd" id="4_buypi"]
 [ext_resource type="PackedScene" uid="uid://11l6gq0gsqrm" path="res://road.tscn" id="4_coq8p"]
 
@@ -32,7 +31,6 @@ point_count = 2
 
 [node name="testscene" parent="." instance=ExtResource("1_8pr8v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0488161, 9.53674e-07, -0.167367)
-visible = false
 
 [node name="LightMarker" parent="." instance=ExtResource("1_sasra")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00826108, 0, -0.0247779)
@@ -42,9 +40,6 @@ transform = Transform3D(0.742467, -0.146507, 0.653665, -1.49012e-08, 0.975791, 0
 size = 25.098
 near = 1.927
 far = 869.15
-
-[node name="car_textured" parent="." instance=ExtResource("3_buypi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.606897, 0.0579077, -3.12073)
 
 [node name="Area3D" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15.7602)
