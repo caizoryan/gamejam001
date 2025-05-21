@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dy0ywsrfkq6bc" path="res://car.tscn" id="1_ia1lp"]
 [ext_resource type="PackedScene" uid="uid://bc067s5j6kck0" path="res://marker.tscn" id="1_sasra"]
 [ext_resource type="PackedScene" uid="uid://b4qsje7cd1cav" path="res://trafficlight.tscn" id="2_sasra"]
-[ext_resource type="Script" uid="uid://g5eoiw750a1n" path="res://area_3d.gd" id="4_buypi"]
+[ext_resource type="Script" path="res://area_3d.gd" id="4_buypi"]
 [ext_resource type="PackedScene" uid="uid://11l6gq0gsqrm" path="res://road.tscn" id="4_coq8p"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_njel3"]
@@ -14,6 +14,7 @@ size = Vector3(5.12041, 4.59558, 41.6978)
 [sub_resource type="PlaneMesh" id="PlaneMesh_coq8p"]
 
 [sub_resource type="Curve3D" id="Curve3D_coq8p"]
+bake_interval = 0.25
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 24.3837, 0, 0, 0, 0, 0, 0, 0, 0, -36.7208),
 "tilts": PackedFloat32Array(0, 0)
@@ -21,11 +22,12 @@ _data = {
 point_count = 2
 
 [sub_resource type="Curve3D" id="Curve3D_2nij2"]
+bake_interval = 0.1
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 16.2556, 0, -1.18016, 0, 0, 0, 0, 0, 0, -26.7698, 0, -1.37908),
-"tilts": PackedFloat32Array(0, 0)
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 16.2556, 0, -1.18016, 0, 0, 0, 0, 0, 0, 13.243, 0, 0.057, 0, 0, 0, 0, 0, 0, 10.281, 0, -1.111, 0, 0, 0, 0, 0, 0, 8.425, 0, -1.967, 0, 0, 0, 0, 0, 0, 5.394, 0, -2.991, 0, 0, 0, 0, 0, 0, 3.582, 0, -3.603, 0, 0, 0, 0, 0, 0, 3.192, 0, -5.307, 0, 0, 0, 0, 0, 0, 3.611, 0, -8.179, 0, 0, 0, 0, 0, 0, 4.551, 0, -11.288, 0, 0, 0, 0, 0, 0, 6.002, 0, -14.195),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 }
-point_count = 2
+point_count = 10
 
 [node name="Tutorial" type="Node3D"]
 
@@ -69,23 +71,16 @@ light_energy = 0.607
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 curve = SubResource("Curve3D_coq8p")
 
-[node name="PathFollow3D" parent="HorizontalRoad/Path3D" index="0"]
-transform = Transform3D(0.999992, 0, 0, 0, 0.999986, 0, 0, 0, 0.999991, 0, 0, 24.3837)
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="HorizontalRoad"]
 transform = Transform3D(-0.358654, 0.755115, -0.548788, 0.0854545, 0.611991, 0.786234, 0.929551, 0.23509, -0.284021, -19.6172, 17.3261, -6.15288)
 light_energy = 0.2
 
 [node name="VerticalRoad" parent="." instance=ExtResource("4_coq8p")]
-CAR_DISTANCE = 3.0
 ROAD_DIRECTION = 1
 
 [node name="Path3D" parent="VerticalRoad" index="0"]
 transform = Transform3D(0.9057, 0, 0, 0, 0.9057, 0, 0, 0, 0.9057, -0.163134, 0.762042, 0.994995)
 curve = SubResource("Curve3D_2nij2")
-
-[node name="PathFollow3D" parent="VerticalRoad/Path3D" index="0"]
-transform = Transform3D(0.00462318, 0, 0.999978, 0, 0.999979, 0, -0.999978, 0, 0.00462318, 16.2556, 0, -1.18016)
 
 [node name="Car" parent="." instance=ExtResource("1_ia1lp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.77724, 0, 13.0851)
