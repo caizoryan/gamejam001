@@ -1,12 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://dwjx753r00y5e"]
+[gd_scene load_steps=15 format=3 uid="uid://dwjx753r00y5e"]
 
 [ext_resource type="PackedScene" uid="uid://b4fhdplgvj0or" path="res://assets/testscene.glb" id="1_8pr8v"]
-[ext_resource type="Script" uid="uid://buui765l8kko5" path="res://traffic_light_controller.gd" id="1_coq8p"]
 [ext_resource type="PackedScene" uid="uid://dy0ywsrfkq6bc" path="res://car.tscn" id="1_ia1lp"]
 [ext_resource type="PackedScene" uid="uid://bc067s5j6kck0" path="res://marker.tscn" id="1_sasra"]
+[ext_resource type="PackedScene" uid="uid://dp3h64xqfqq6a" path="res://assets/testscene01.glb" id="2_njel3"]
 [ext_resource type="PackedScene" uid="uid://b4qsje7cd1cav" path="res://trafficlight.tscn" id="2_sasra"]
-[ext_resource type="Script" path="res://area_3d.gd" id="4_buypi"]
 [ext_resource type="PackedScene" uid="uid://11l6gq0gsqrm" path="res://road.tscn" id="4_coq8p"]
+[ext_resource type="Script" uid="uid://ojr6fjgro7d2" path="res://traffic_main.gd" id="4_vr1i5"]
 [ext_resource type="Script" uid="uid://c4os3vhaeqgol" path="res://pedestrian_follow.gd" id="7_buypi"]
 [ext_resource type="PackedScene" uid="uid://cktr3xk3eikwy" path="res://pedestrian.tscn" id="8_buypi"]
 
@@ -44,6 +44,10 @@ font_color = Color(1, 0, 0.313726, 1)
 
 [node name="testscene" parent="." instance=ExtResource("1_8pr8v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0488161, 9.53674e-07, -0.167367)
+visible = false
+
+[node name="testscene01" parent="." instance=ExtResource("2_njel3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0668991, 0, -0.087816)
 
 [node name="LightMarker" parent="." instance=ExtResource("1_sasra")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00826108, 0, -0.0247779)
@@ -61,9 +65,23 @@ far = 869.15
 transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -4.36306e-05, -0.0417376, 0.0233889)
 mesh = SubResource("PlaneMesh_coq8p")
 
-[node name="TrafficLight" parent="." instance=ExtResource("2_sasra")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0505892, 0.00345349, -0.0769851)
-script = ExtResource("1_coq8p")
+[node name="TrafficSystem" type="Node3D" parent="."]
+transform = Transform3D(0.332289, 0, 0, 0, 1, 0, 0, 0, 0.367458, 3.36821, 1.13965, 3.19146)
+script = ExtResource("4_vr1i5")
+
+[node name="Left" parent="TrafficSystem" instance=ExtResource("2_sasra")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.3227, 0, -17.0057)
+
+[node name="Down" parent="TrafficSystem" instance=ExtResource("2_sasra")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.2795, 0, 0)
+facing = 3
+
+[node name="Right" parent="TrafficSystem" instance=ExtResource("2_sasra")]
+facing = 1
+
+[node name="Up" parent="TrafficSystem" instance=ExtResource("2_sasra")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -17.6465)
+facing = 2
 
 [node name="light0" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.835357, 0.0878685, 0.54264, -0.181057, 0.97604, 0.120677, -0.519035, -0.199058, 0.831251, 1.91524, 10.6999, 16.1237)
@@ -73,8 +91,8 @@ light_energy = 0.607
 transform = Transform3D(-0.358654, 0.755116, -0.548788, 0.0854545, 0.611991, 0.786234, 0.929551, 0.23509, -0.284021, -19.6172, 17.3261, -6.15288)
 light_energy = 0.2
 
-[node name="HorizontalRoad" parent="." instance=ExtResource("4_coq8p")]
-CAR_DISTANCE = 3.0
+[node name="HorizontalRoad" parent="." node_paths=PackedStringArray("TRAFFIC_SYSTEM") instance=ExtResource("4_coq8p")]
+TRAFFIC_SYSTEM = NodePath("../TrafficSystem")
 
 [node name="Path3D" parent="HorizontalRoad" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
@@ -84,7 +102,8 @@ curve = SubResource("Curve3D_coq8p")
 transform = Transform3D(-0.358654, 0.755115, -0.548788, 0.0854545, 0.611991, 0.786234, 0.929551, 0.23509, -0.284021, -19.6172, 17.3261, -6.15288)
 light_energy = 0.2
 
-[node name="VerticalRoad" parent="." instance=ExtResource("4_coq8p")]
+[node name="VerticalRoad" parent="." node_paths=PackedStringArray("TRAFFIC_SYSTEM") instance=ExtResource("4_coq8p")]
+TRAFFIC_SYSTEM = NodePath("../TrafficSystem")
 ROAD_DIRECTION = 1
 
 [node name="Path3D" parent="VerticalRoad" index="0"]
@@ -126,8 +145,7 @@ offset_bottom = 592.0
 text = "YOU WON!"
 label_settings = SubResource("LabelSettings_buypi")
 
-[connection signal="light_changed" from="TrafficLight" to="HorizontalRoad" method="_on_traffic_light_light_changed"]
-[connection signal="light_changed" from="TrafficLight" to="VerticalRoad" method="_on_traffic_light_light_changed"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 
 [editable path="HorizontalRoad"]
 [editable path="VerticalRoad"]

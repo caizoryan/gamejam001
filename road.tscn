@@ -8,7 +8,7 @@ script/source = "extends Node3D
 # already linked in object
 @export var TIMER: Timer
 @export var PATH: Path3D
-
+@export var TRAFFIC_SYSTEM: Node3D
 # vars that can be controlled
 @export var NUM_CARS: int = 2
 # references that need to manually be set
@@ -29,6 +29,7 @@ func _ready() -> void:
 	if not PATH.curve or PATH.curve.get_baked_points().is_empty():
 		push_error(\"yoooo: path with no baked points defined\")
 	BAKED_POINTS = PATH.curve.get_baked_points()
+	TRAFFIC_SYSTEM.light_changed.connect(_on_traffic_light_light_changed)
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.is_released() and ROAD_DIRECTION == CURR_TRAFFIC_DIR:
@@ -43,7 +44,7 @@ func _input(event: InputEvent) -> void:
 					new_car.global_position = init_position
 
 					new_car.set_meta(\"curve_index\", 0)
-					new_car.position = INIT_POSITION + Vector3(0, 1 * CAR_GROUP.get_child_count(), 0)
+					new_car.position = INIT_POSITION + Vector3(1 * CAR_GROUP.get_child_count(),0, 0)
 					if ROAD_DIRECTION == StateEnums.Direction.Z_AXIS:
 						new_car.rotation_degrees = Vector3(0, 90, 0)
 					
