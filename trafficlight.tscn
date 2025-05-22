@@ -1,16 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://b4qsje7cd1cav"]
+[gd_scene load_steps=4 format=3 uid="uid://b4qsje7cd1cav"]
+
+[ext_resource type="Script" uid="uid://buui765l8kko5" path="res://traffic_light_controller.gd" id="1_2r5o7"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_2r5o7"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_cmg1p"]
 
-[node name="TrafficLight" type="StaticBody3D"]
+[node name="TrafficLight" type="StaticBody3D" node_paths=PackedStringArray("mesh")]
+script = ExtResource("1_2r5o7")
+mesh = NodePath("mesh")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.332289, 0, 0, 0, 1, 0, 0, 0, 0.367458, 0, 1.1362, 0)
-mesh = SubResource("BoxMesh_cmg1p")
+[node name="mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.332289, 0, 0, 0, 1, 0, 0, 0, 0.367458, 0, 1.1362, -1.16415e-10)
+mesh = SubResource("BoxMesh_2r5o7")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.110416, 0, 0, 0, 1, 0, 0, 0, 0.135025, 0.00428557, 0.525778, -0.00139809)
 mesh = SubResource("BoxMesh_cmg1p")
-skeleton = NodePath("../MeshInstance3D")
+skeleton = NodePath("../mesh")
