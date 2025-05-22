@@ -1,12 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://11l6gq0gsqrm"]
+[gd_scene load_steps=4 format=3 uid="uid://11l6gq0gsqrm"]
+
+[ext_resource type="Script" uid="uid://d2ec0wpktsopt" path="res://road.gd" id="1_x0d2t"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_x0d2t"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_x0d2t"]
 
 [node name="Road" type="Node3D"]
-
-[node name="Timer" type="Timer" parent="."]
+script = ExtResource("1_x0d2t")
 
 [node name="SpawnPoint" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0377092, 0, 15.7783)
@@ -15,3 +16,5 @@ mesh = SubResource("CapsuleMesh_x0d2t")
 [node name="EndPoint" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -59.7834)
 mesh = SubResource("BoxMesh_x0d2t")
+
+[node name="Timer" type="Timer" parent="."]
