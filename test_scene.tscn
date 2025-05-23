@@ -1,13 +1,14 @@
-[gd_scene load_steps=11 format=3 uid="uid://dwjx753r00y5e"]
+[gd_scene load_steps=12 format=3 uid="uid://dwjx753r00y5e"]
 
 [ext_resource type="PackedScene" uid="uid://b4fhdplgvj0or" path="res://assets/testscene.glb" id="1_8pr8v"]
-[ext_resource type="PackedScene" uid="uid://dy0ywsrfkq6bc" path="res://car.tscn" id="1_ia1lp"]
+[ext_resource type="PackedScene" uid="uid://dy0ywsrfkq6bc" path="res://pink_car.tscn" id="1_ia1lp"]
 [ext_resource type="PackedScene" uid="uid://bc067s5j6kck0" path="res://marker.tscn" id="1_sasra"]
 [ext_resource type="PackedScene" uid="uid://dp3h64xqfqq6a" path="res://assets/testscene01.glb" id="2_njel3"]
 [ext_resource type="PackedScene" uid="uid://b4qsje7cd1cav" path="res://trafficlight.tscn" id="2_sasra"]
 [ext_resource type="PackedScene" uid="uid://11l6gq0gsqrm" path="res://road.tscn" id="4_coq8p"]
 [ext_resource type="Script" uid="uid://ojr6fjgro7d2" path="res://traffic_main.gd" id="4_vr1i5"]
 [ext_resource type="Script" uid="uid://blf5rlxnsfsjf" path="res://spawner.gd" id="7_buypi"]
+[ext_resource type="PackedScene" uid="uid://c5d332iqd8yfh" path="res://green_car.tscn" id="8_njel3"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_coq8p"]
 
@@ -66,12 +67,6 @@ light_energy = 0.607
 transform = Transform3D(-0.358654, 0.755116, -0.548788, 0.0854545, 0.611991, 0.786234, 0.929551, 0.23509, -0.284021, -19.6172, 17.3261, -6.15288)
 light_energy = 0.2
 
-[node name="Car" parent="." instance=ExtResource("1_ia1lp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.77724, 0, 13.0851)
-
-[node name="CollisionShape3D" parent="Car" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0491695, 0.619167, -0.246745)
-
 [node name="Win" type="Control" parent="."]
 visible = false
 layout_mode = 3
@@ -90,13 +85,16 @@ label_settings = SubResource("LabelSettings_buypi")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 
-[node name="RoadParent" type="Node3D" parent="." node_paths=PackedStringArray("TrafficLight", "LeftRoad", "RightRoad", "UpRoad", "DownRoad")]
+[node name="RoadParent" type="Node3D" parent="." node_paths=PackedStringArray("SpawnTimer", "TrafficLight", "LeftRoad", "RightRoad", "UpRoad", "DownRoad")]
 script = ExtResource("7_buypi")
+SpawnTimer = NodePath("Timer")
 TrafficLight = NodePath("../TrafficSystem")
 LeftRoad = NodePath("LeftRoad")
 RightRoad = NodePath("RightRoad")
 UpRoad = NodePath("UpRoad")
 DownRoad = NodePath("DownRoad")
+CARS = Array[PackedScene]([ExtResource("1_ia1lp"), ExtResource("8_njel3")])
+CAR_PROBS = Array[float]([0.1, 0.9])
 
 [node name="LeftRoad" parent="RoadParent" instance=ExtResource("4_coq8p")]
 
@@ -136,7 +134,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.678801, 0, -4.05094)
 [node name="EndPoint" parent="RoadParent/DownRoad" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.481376, 0, 3.89421)
 
-[editable path="Car"]
+[node name="Timer" type="Timer" parent="RoadParent"]
+one_shot = true
+
+[connection signal="timeout" from="RoadParent/Timer" to="RoadParent" method="spawn_on_timeout"]
+
 [editable path="RoadParent/LeftRoad"]
 [editable path="RoadParent/RightRoad"]
 [editable path="RoadParent/UpRoad"]
