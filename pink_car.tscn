@@ -1,17 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://dy0ywsrfkq6bc"]
+[gd_scene load_steps=4 format=3 uid="uid://dy0ywsrfkq6bc"]
 
-[ext_resource type="PackedScene" uid="uid://cypjqtxwof0fw" path="res://assets/car_pink.glb" id="1_7822p"]
+[ext_resource type="Script" uid="uid://jy2tmm5wuvwm" path="res://car_properties.gd" id="1_ebywg"]
+[ext_resource type="PackedScene" uid="uid://cypjqtxwof0fw" path="res://assets/car_pink.glb" id="2_0p4vj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7822p"]
 size = Vector3(1.36035, 1, 2.51997)
 
 [node name="Car" type="CharacterBody3D"]
-metadata/curve_index = 0
-metadata/distance = 0.0
+script = ExtResource("1_ebywg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0379429, 0.6035, -0.237667)
 shape = SubResource("BoxShape3D_7822p")
 
-[node name="car_pink" parent="." instance=ExtResource("1_7822p")]
+[node name="car_pink" parent="." instance=ExtResource("2_0p4vj")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[editable path="car_pink"]

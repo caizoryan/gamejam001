@@ -1,13 +1,13 @@
 extends StaticBody3D
-@export var facing: StateEnums.TrafficLight
+@export var facing: StateEnums.Direction
 @export var mesh: MeshInstance3D
 
-var curr_state: StateEnums.TrafficLight
+var curr_state: StateEnums.Direction
 
 func _ready() -> void:
 	self.get_parent().light_changed.connect(_on_light_changed)
 
-func _on_light_changed(state: StateEnums.TrafficLight):
+func _on_light_changed(state: StateEnums.Direction):
 	curr_state = state
 	make_active()
 

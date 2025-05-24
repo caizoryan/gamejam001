@@ -1,94 +1,20 @@
 [gd_scene load_steps=4 format=3 uid="uid://11l6gq0gsqrm"]
 
-[ext_resource type="PackedScene" uid="uid://dy0ywsrfkq6bc" path="res://car.tscn" id="2_3veuu"]
+[ext_resource type="Script" uid="uid://d2ec0wpktsopt" path="res://road.gd" id="1_x0d2t"]
 
-[sub_resource type="GDScript" id="GDScript_yp5lu"]
-script/source = "extends Node3D
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_x0d2t"]
 
-# already linked in object
-@export var TIMER: Timer
-@export var PATH: Path3D
-@export var TRAFFIC_SYSTEM: Node3D
-# vars that can be controlled
-@export var NUM_CARS: int = 2
-# references that need to manually be set
-@export var CAR: PackedScene
-@export var ROAD_DIRECTION: StateEnums.Direction
+[sub_resource type="BoxMesh" id="BoxMesh_x0d2t"]
 
-# global vars
-var CAR_GROUP = Node3D.new()
-var RUN_CARS = false
-var CURR_TRAFFIC_DIR = null
-var SPAWN_CARS = false
-var INIT_POSITION = Vector3(0,0,0)
-var BAKED_POINTS = null
+[node name="Road" type="Node3D"]
+script = ExtResource("1_x0d2t")
 
-func _ready() -> void:
-	PATH.add_child(CAR_GROUP)
-	TIMER.timeout.connect(_on_timer_timeout)
-	if not PATH.curve or PATH.curve.get_baked_points().is_empty():
-		push_error(\"yoooo: path with no baked points defined\")
-	BAKED_POINTS = PATH.curve.get_baked_points()
-	TRAFFIC_SYSTEM.light_changed.connect(_on_traffic_light_light_changed)
+[node name="SpawnPoint" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0377092, 0, 15.7783)
+mesh = SubResource("CapsuleMesh_x0d2t")
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventKey and event.is_released() and ROAD_DIRECTION == CURR_TRAFFIC_DIR:
-		match event.keycode:
-			KEY_E:
-				RUN_CARS = !RUN_CARS
-			KEY_W:
-				for i in range(NUM_CARS):
-					var new_car = CAR.instantiate()
-					var init_position = BAKED_POINTS[0]
-					new_car.look_at(init_position, Vector3.UP)
-					new_car.global_position = init_position
-
-					new_car.set_meta(\"curve_index\", 0)
-					new_car.position = INIT_POSITION + Vector3(1 * CAR_GROUP.get_child_count(),0, 0)
-					if ROAD_DIRECTION == StateEnums.Direction.Z_AXIS:
-						new_car.rotation_degrees = Vector3(0, 90, 0)
-					
-					CAR_GROUP.add_child(new_car)
-					#TIMER.start(SPAWN)
-
-func _process(delta: float) -> void:
-	if RUN_CARS:
-		for car in CAR_GROUP.get_children():
-			var index = car.get_meta(\"curve_index\")
-			if index + 1 >= BAKED_POINTS.size():
-				car.queue_free()
-				return
-			var next_position = BAKED_POINTS[index + 1]
-			car.look_at(next_position, Vector3.UP)
-			car.global_position = car.global_position.lerp(next_position, delta)
-			car.set_meta(\"curve_index\", index+1)
-#
-func _on_timer_timeout():
-	pass
-	#var new_car = CAR.instantiate()
-	#var num_children = CAR_GROUP.get_child_count()
-	#new_car.position = INIT_POSITION
-	#CAR_GROUP.add_child(new_car)  
-
-func _on_traffic_light_light_changed(new_dir) -> void:
-	CURR_TRAFFIC_DIR = new_dir
-"
-
-[sub_resource type="Curve3D" id="Curve3D_3veuu"]
-_data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0),
-"tilts": PackedFloat32Array(0)
-}
-point_count = 1
-
-[node name="Road" type="Node3D" node_paths=PackedStringArray("TIMER", "PATH")]
-script = SubResource("GDScript_yp5lu")
-TIMER = NodePath("Timer")
-PATH = NodePath("Path3D")
-CAR = ExtResource("2_3veuu")
-
-[node name="Path3D" type="Path3D" parent="."]
-transform = Transform3D(0.9057, 0, 0, 0, 0.9057, 0, 0, 0, 0.9057, -0.163134, 0.762042, 1.17084)
-curve = SubResource("Curve3D_3veuu")
+[node name="EndPoint" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -59.7834)
+mesh = SubResource("BoxMesh_x0d2t")
 
 [node name="Timer" type="Timer" parent="."]
