@@ -109,6 +109,7 @@ func spawn_on_timeout():
 
 
 func _process(delta):
+	print("attached")
 	if CURR_TRAFFIC_DIR == StateEnums.Direction.NONE:
 		return
 	var end = EndDict[CURR_TRAFFIC_DIR]

@@ -137,6 +137,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0598951, 0.17139, -0.115836
 environment = SubResource("Environment_vr1i5")
 camera_attributes = SubResource("CameraAttributesPractical_njel3")
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
 [editable path="HorizontalRoad"]
 [editable path="VerticalRoad"]
 [editable path="Car"]
