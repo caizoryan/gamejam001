@@ -7,6 +7,7 @@ extends Node3D
 @export var UpRoad: Node3D
 @export var DownRoad: Node3D
 @export var Win: Control
+@export var Lose: Control
 
 var RoadDict
 var SpawnDict
@@ -116,6 +117,7 @@ func spawn_on_timeout():
 		new_car.mid_point = mid_point.global_position
 		new_car.end_point = end_point.global_position
 		new_car.car_timer.start(new_car.patience)
+		new_car.lose = Lose
 		print("timer started")
 		
 		if(dir == CURR_TRAFFIC_DIR):

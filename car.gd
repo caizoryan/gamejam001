@@ -4,6 +4,7 @@ enum CAR_STATE {TO_MID, TO_END}
 
 @export var max_speed: float = 5.0
 @export var horn: AudioStreamPlayer3D
+@export var lose: Control
 
 @export var patience: float = 10
 @export var follow_distance:float = 3.5
@@ -54,15 +55,16 @@ var max = 3
 func oscillate(pos: Vector2) -> Vector2:
 	oscillator_x += dir*.8
 	
-	if (dir == 1): if (oscillator_x > max): dir = -1
-	else: if (oscillator_x < (max*-1)): dir = 1
+	if (dir == 1): 
+		if (oscillator_x > max): dir = -1
+	else: 
+		if (oscillator_x < (max*-1)): dir = 1
 	
 	pos.x += oscillator_x
 	return pos
 
 var changed_to_red = false
 var changed_to_panic = false
-
 
 func _process(delta: float) -> void:
 	if (passed_mid): 
@@ -90,4 +92,3 @@ func _process(delta: float) -> void:
 
 func patience_timeout():
 	print("game lost!")
-	

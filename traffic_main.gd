@@ -3,7 +3,9 @@ extends Node3D
 signal light_changed
 var curr_state = StateEnums.Direction.NONE
 @export var mesh: MeshInstance3D
-
+func _ready():
+	change_light(StateEnums.Direction.UP)
+	
 func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.is_released():
 		match event.keycode:

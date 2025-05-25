@@ -1,20 +1,35 @@
-[gd_scene load_steps=4 format=3 uid="uid://b4qsje7cd1cav"]
+[gd_scene load_steps=6 format=3 uid="uid://b4qsje7cd1cav"]
 
 [ext_resource type="Script" uid="uid://buui765l8kko5" path="res://traffic_light_controller.gd" id="1_2r5o7"]
+[ext_resource type="PackedScene" uid="uid://csrsx06udab5w" path="res://assets/trafficlight.glb" id="2_svpcs"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_2r5o7"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_g0ksb"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_svpcs"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_cmg1p"]
 
 [node name="TrafficLight" type="StaticBody3D" node_paths=PackedStringArray("mesh")]
 script = ExtResource("1_2r5o7")
-mesh = NodePath("mesh")
+mesh = NodePath("red")
 
-[node name="mesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.332289, 0, 0, 0, 1, 0, 0, 0, 0.367458, 0, 1.1362, -1.16415e-10)
-mesh = SubResource("BoxMesh_2r5o7")
+[node name="red" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.287584, 0, 0, 0, -0.000434744, -0.276462, 0, 0.0327299, -0.00367219, -0.0160263, 3.08507, 0.384101)
+mesh = SubResource("CylinderMesh_g0ksb")
+
+[node name="green" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.287584, 0, 0, 0, -0.000434744, -0.276462, 0, 0.0327299, -0.00367219, -0.0160263, 2.33762, 0.385992)
+mesh = SubResource("CylinderMesh_g0ksb")
+
+[node name="marker" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.40659, 0, 0, 0, 0.101838, 0, 0, 0, 1.22416, 0, 0, 0.0870699)
+mesh = SubResource("BoxMesh_svpcs")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.110416, 0, 0, 0, 1, 0, 0, 0, 0.135025, 0.00428557, 0.525778, -0.00139809)
+visible = false
 mesh = SubResource("BoxMesh_cmg1p")
-skeleton = NodePath("../mesh")
+skeleton = NodePath("../red")
+
+[node name="trafficlight2" parent="." instance=ExtResource("2_svpcs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0372176, 0.00879645, 0.103302)

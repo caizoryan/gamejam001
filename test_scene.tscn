@@ -19,10 +19,6 @@
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_coq8p"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_buypi"]
-font_size = 38
-font_color = Color(1, 0, 0.313726, 1)
-
 [sub_resource type="LabelSettings" id="LabelSettings_k6its"]
 font = ExtResource("8_hiucn")
 font_size = 44
@@ -44,13 +40,17 @@ adjustment_saturation = 2.01
 dof_blur_far_enabled = true
 dof_blur_far_distance = 0.46
 
+[sub_resource type="LabelSettings" id="LabelSettings_buypi"]
+font_size = 38
+font_color = Color(1, 0, 0.313726, 1)
+
 [node name="Tutorial" type="Node3D"]
 
 [node name="LightMarker" parent="." instance=ExtResource("1_sasra")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00826108, 0, -0.0247779)
 
 [node name="Camera" type="Camera3D" parent="."]
-transform = Transform3D(0.569906, -0.305161, 0.762944, -0.00635496, 0.926819, 0.375454, -0.821685, -0.218823, 0.526261, 23.5276, 13.923, 16.5398)
+transform = Transform3D(0.725146, -0.27303, 0.632154, -0.00354657, 0.916541, 0.399925, -0.688586, -0.292247, 0.663658, 19.9911, 13.9624, 21.6388)
 projection = 1
 size = 10.0
 near = 1.927
@@ -63,21 +63,22 @@ transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, -4.36306e-05, -0.0417376, 
 mesh = SubResource("PlaneMesh_coq8p")
 
 [node name="TrafficSystem" type="Node3D" parent="."]
-transform = Transform3D(0.332289, 0, 0, 0, 1, 0, 0, 0, 0.367458, 3.36821, 1.13965, 3.19146)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.36821, 0.503098, 3.19146)
 script = ExtResource("4_vr1i5")
 
 [node name="Left" parent="TrafficSystem" instance=ExtResource("2_sasra")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.3227, 0, -17.0057)
+transform = Transform3D(-0.999694, 0, 0.0247288, 0, 1, 0, -0.0247288, 0, -0.999694, -7.5674, 0, 1.0822)
 
 [node name="Down" parent="TrafficSystem" instance=ExtResource("2_sasra")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.2795, 0, 0)
+transform = Transform3D(-0.000261827, 0, -1, 0, 1, 0, 1, 0, -0.000261827, 0.889806, 0, 1.06487)
 facing = 3
 
 [node name="Right" parent="TrafficSystem" instance=ExtResource("2_sasra")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.901819, 0, -7.16542)
 facing = 1
 
 [node name="Up" parent="TrafficSystem" instance=ExtResource("2_sasra")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -17.6465)
+transform = Transform3D(-0.0157422, 0, 0.999876, 0, 1, 0, -0.999876, 0, -0.0157422, -7.59119, 0, -7.24879)
 facing = 2
 
 [node name="light0" type="DirectionalLight3D" parent="."]
@@ -99,15 +100,6 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-
-[node name="Label" type="Label" parent="Win"]
-layout_mode = 0
-offset_left = 846.0
-offset_top = 539.0
-offset_right = 1043.0
-offset_bottom = 592.0
-text = "YOU WON!"
-label_settings = SubResource("LabelSettings_buypi")
 
 [node name="Start" type="Control" parent="." node_paths=PackedStringArray("start_button", "camera", "score")]
 layout_mode = 3
@@ -168,7 +160,7 @@ visible = false
 environment = SubResource("Environment_vr1i5")
 camera_attributes = SubResource("CameraAttributesPractical_njel3")
 
-[node name="RoadParent" type="Node3D" parent="." node_paths=PackedStringArray("SpawnTimer", "TrafficLight", "LeftRoad", "RightRoad", "UpRoad", "DownRoad", "Win")]
+[node name="RoadParent" type="Node3D" parent="." node_paths=PackedStringArray("SpawnTimer", "TrafficLight", "LeftRoad", "RightRoad", "UpRoad", "DownRoad", "Win", "Lose")]
 script = ExtResource("7_buypi")
 SpawnTimer = NodePath("Timer")
 TrafficLight = NodePath("../TrafficSystem")
@@ -177,13 +169,14 @@ RightRoad = NodePath("RightRoad")
 UpRoad = NodePath("UpRoad")
 DownRoad = NodePath("DownRoad")
 Win = NodePath("../Win")
+Lose = NodePath("../Lose")
 CARS = Array[PackedScene]([ExtResource("1_ia1lp"), ExtResource("14_0k8yu")])
 CAR_PROBS = Array[float]([0.8, 0.2])
 
 [node name="DownRoad" parent="RoadParent" instance=ExtResource("4_coq8p")]
 
 [node name="SpawnPoint" parent="RoadParent/DownRoad" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5807, 0, 1.19647)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.9052, 0, 1.13833)
 
 [node name="MidPoint" parent="RoadParent/DownRoad" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.556, 0, 1.196)
@@ -196,7 +189,7 @@ visible = false
 [node name="UpRoad" parent="RoadParent" instance=ExtResource("4_coq8p")]
 
 [node name="SpawnPoint" parent="RoadParent/UpRoad" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.9429, 0, -1.209)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50.401, 0, -1.209)
 
 [node name="MidPoint" parent="RoadParent/UpRoad" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.07, 0, -1.209)
@@ -209,7 +202,7 @@ visible = false
 [node name="RightRoad" parent="RoadParent" instance=ExtResource("4_coq8p")]
 
 [node name="SpawnPoint" parent="RoadParent/RightRoad" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0, 14.6934)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0, 47.8909)
 
 [node name="MidPoint" parent="RoadParent/RightRoad" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0, 4.17)
@@ -222,7 +215,7 @@ visible = false
 [node name="LeftRoad" parent="RoadParent" instance=ExtResource("4_coq8p")]
 
 [node name="SpawnPoint" parent="RoadParent/LeftRoad" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.38089, 0, -8.51107)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.38089, 0, -46.6859)
 
 [node name="MidPoint" parent="RoadParent/LeftRoad" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.381, 0, -4.222)
@@ -234,6 +227,22 @@ visible = false
 
 [node name="Timer" type="Timer" parent="RoadParent"]
 one_shot = true
+
+[node name="Lose" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Lose"]
+layout_mode = 0
+offset_left = 846.0
+offset_top = 539.0
+offset_right = 1043.0
+offset_bottom = 592.0
+text = "YOU LOST!"
+label_settings = SubResource("LabelSettings_buypi")
 
 [connection signal="timeout" from="RoadParent/Timer" to="RoadParent" method="spawn_on_timeout"]
 
