@@ -39,6 +39,7 @@ func _ready():
 		StateEnums.Direction.DOWN: DownRoad,
 	}
 	
+	print(SpawnTimer)
 	SpawnDict = {
 		StateEnums.Direction.LEFT: LeftRoad.get_child(0),
 		StateEnums.Direction.RIGHT: RightRoad.get_child(0),

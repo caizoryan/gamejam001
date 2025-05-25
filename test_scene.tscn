@@ -9,16 +9,12 @@
 [ext_resource type="PackedScene" uid="uid://dwrl5vgowu4sk" path="res://assets/testscene02.glb" id="8_njel3"]
 [ext_resource type="PackedScene" uid="uid://baiqbj4qj3lyw" path="res://green_car.tscn" id="8_vr1i5"]
 [ext_resource type="Texture2D" uid="uid://dgs6i11kpxa5d" path="res://assets/testscene01_RGB.png" id="9_njel3"]
-[ext_resource type="Texture2D" uid="uid://ce11q7lh6ia8c" path="res://assets/buttons/1x/start.png" id="9_oo8pe"]
-[ext_resource type="Texture2D" uid="uid://d24vjpc8wccob" path="res://assets/buttons/1x/start_hovered.png" id="10_4gito"]
-[ext_resource type="Texture2D" uid="uid://s5b43pe32gdi" path="res://assets/buttons/1x/score.png" id="10_k6its"]
-[ext_resource type="AudioStream" uid="uid://bfaojxooaqbe5" path="res://assets/background.mp3" id="16_hiucn"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_coq8p"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_buypi"]
-font = ExtResource("8_0k8yu")
 font_size = 38
+font_color = Color(1, 0, 0.313726, 1)
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_buypi"]
 panorama = ExtResource("9_njel3")
@@ -40,10 +36,13 @@ dof_blur_far_distance = 0.46
 
 [node name="Tutorial" type="Node3D"]
 
+[node name="LightMarker" parent="." instance=ExtResource("1_sasra")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00826108, 0, -0.0247779)
+
 [node name="Camera" type="Camera3D" parent="."]
 transform = Transform3D(0.569906, -0.305161, 0.762944, -0.00635496, 0.926819, 0.375454, -0.821685, -0.218823, 0.526261, 23.5276, 13.923, 16.5398)
 projection = 1
-size = 10.0
+size = 18.589
 near = 1.927
 far = 869.15
 
@@ -88,70 +87,19 @@ directional_shadow_split_1 = 0.223
 visible = false
 layout_mode = 3
 anchors_preset = 0
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 221.0
-offset_bottom = 61.0
-
-[node name="TextureProgressBar" type="TextureProgressBar" parent="Win"]
-layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-step = 0.01
-value = 25.0
-fill_mode = 4
-texture_under = ExtResource("7_k6its")
-texture_progress = ExtResource("8_k6its")
 
-[node name="score" type="Control" parent="." node_paths=PackedStringArray("label")]
-visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("9_hiucn")
-label = NodePath("Label")
-
-[node name="TextureRect" type="TextureRect" parent="score"]
+[node name="Label" type="Label" parent="Win"]
 layout_mode = 0
-offset_left = 46.0
-offset_top = 23.0
-offset_right = 328.0
-offset_bottom = 162.0
-texture = ExtResource("10_k6its")
-expand_mode = 1
-
-[node name="Label" type="Label" parent="score"]
-layout_mode = 0
-offset_left = 233.0
-offset_top = 72.0
-offset_right = 430.0
-offset_bottom = 125.0
-text = "0"
+offset_left = 846.0
+offset_top = 539.0
+offset_right = 1043.0
+offset_bottom = 592.0
+text = "YOU WON!"
 label_settings = SubResource("LabelSettings_buypi")
 
-[node name="start" type="Control" parent="." node_paths=PackedStringArray("start_button", "camera", "score")]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("8_vr1i5")
-start_button = NodePath("TextureButton")
-camera = NodePath("../Camera")
-score = NodePath("../score")
-
-[node name="TextureButton" type="TextureButton" parent="start"]
-layout_mode = 0
-offset_left = 825.0
-offset_top = 471.0
-offset_right = 1156.0
-offset_bottom = 633.0
-texture_normal = ExtResource("9_oo8pe")
-texture_hover = ExtResource("10_4gito")
-ignore_texture_size = true
-stretch_mode = 4
-
-[node name="Scene" parent="." instance=ExtResource("8_njel3")]
+[node name="testscene02" parent="." instance=ExtResource("8_njel3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0598951, 0.17139, -0.115836)
 
 [node name="World" type="WorldEnvironment" parent="."]
@@ -171,48 +119,43 @@ CARS = Array[PackedScene]([ExtResource("1_ia1lp"), ExtResource("8_vr1i5")])
 CAR_PROBS = Array[float]([0.8, 0.2])
 
 [node name="DownRoad" parent="RoadParent" instance=ExtResource("4_coq8p")]
-Facing = 3
 
 [node name="SpawnPoint" parent="RoadParent/DownRoad" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5807, 0, 1.19647)
 
 [node name="MidPoint" parent="RoadParent/DownRoad" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.556, 0, 1.196)
-visible = false
 
 [node name="EndPoint" parent="RoadParent/DownRoad" index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.3882, 0, 1.196)
-visible = false
 
 [node name="UpRoad" parent="RoadParent" instance=ExtResource("4_coq8p")]
-Facing = 2
 
 [node name="SpawnPoint" parent="RoadParent/UpRoad" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.9429, 0, -1.209)
 
 [node name="MidPoint" parent="RoadParent/UpRoad" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.07, 0, -1.209)
-visible = false
 
 [node name="EndPoint" parent="RoadParent/UpRoad" index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.65148, 0, -1.2088)
-visible = false
 
 [node name="RightRoad" parent="RoadParent" instance=ExtResource("4_coq8p")]
-Facing = 1
 
 [node name="SpawnPoint" parent="RoadParent/RightRoad" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0, 14.6934)
 
 [node name="MidPoint" parent="RoadParent/RightRoad" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0, 4.17)
-visible = false
 
 [node name="EndPoint" parent="RoadParent/RightRoad" index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0, -9.15519)
-visible = false
 
-[node name="LeftRoad" parent="RoadParent" instance=ExtResource("4_coq8p")]
+[node name="LeftRoad" parent="RoadParent" node_paths=PackedStringArray("LeftRoad", "RightRoad", "UpRoad", "DownRoad") instance=ExtResource("4_coq8p")]
+LeftRoad = NodePath(".")
+RightRoad = NodePath("../RightRoad")
+UpRoad = NodePath("../UpRoad")
+DownRoad = NodePath("../DownRoad")
 
 [node name="SpawnPoint" parent="RoadParent/LeftRoad" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.38089, 0, -8.51107)

@@ -1,6 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://11l6gq0gsqrm"]
-
-[ext_resource type="Script" uid="uid://blf5rlxnsfsjf" path="res://spawner.gd" id="1_x0d2t"]
+[gd_scene load_steps=4 format=3 uid="uid://11l6gq0gsqrm"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_x0d2t"]
 
@@ -9,7 +7,6 @@
 [sub_resource type="BoxMesh" id="BoxMesh_x0d2t"]
 
 [node name="Road" type="Node3D"]
-script = ExtResource("1_x0d2t")
 
 [node name="SpawnPoint" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0377092, 0, 15.7783)
