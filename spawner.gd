@@ -6,10 +6,12 @@ extends Node3D
 @export var RightRoad: Node3D
 @export var UpRoad: Node3D
 @export var DownRoad: Node3D
+@export var Win: Control
 
 var RoadDict
 var SpawnDict
 var EndDict
+var MidDict
 var CarGroups
 var NextSpawn = []
 
@@ -18,15 +20,13 @@ var NextSpawn = []
 # spawner variables
 # how many cars spawn at the same time
 @export var SPAWN_NUM: int = 1
-# which/how many directions can spawn at the same time
-@export var SPAWN_DIRECTION: Array[StateEnums.Direction]
 # max and min time spawns can occur
 @export var MIN_SPAWN_TIME: float = 1
 @export var MAX_SPAWN_TIME: float = 2
 # time before difficulty increases
 @export var SECS_BEFORE_DIFFICULTY: float = 10
 # array of the probs of a specific car type spawning
-var CURR_TRAFFIC_DIR = StateEnums.Direction.NONE
+var CURR_TRAFFIC_DIR = StateEnums.Direction.LEFT
 
 func _ready():
 	if TrafficLight:
@@ -46,11 +46,18 @@ func _ready():
 		StateEnums.Direction.DOWN: DownRoad.get_child(0)
 	}
 	
-	EndDict = {
+	MidDict = {
 		StateEnums.Direction.LEFT: LeftRoad.get_child(1),
 		StateEnums.Direction.RIGHT: RightRoad.get_child(1),
 		StateEnums.Direction.UP: UpRoad.get_child(1),
 		StateEnums.Direction.DOWN: DownRoad.get_child(1)
+	}
+	
+	EndDict = {
+		StateEnums.Direction.LEFT: LeftRoad.get_child(2),
+		StateEnums.Direction.RIGHT: RightRoad.get_child(2),
+		StateEnums.Direction.UP: UpRoad.get_child(2),
+		StateEnums.Direction.DOWN: DownRoad.get_child(2)
 	}
 	
 	CarGroups = {
@@ -78,12 +85,10 @@ func decide_random_spawn():
 	# decide what spawns
 	for i in range(SPAWN_NUM):
 		var rand_num = randf()
-		print("RANDOM NUMBER WAS ", rand_num)
 		var offset = 0
 		for j in range(CARS.size()):
-			if CAR_PROBS[j] > rand_num + offset:
+			if CAR_PROBS[j] + offset > rand_num:
 				NextSpawn.append([CARS[j], StateEnums.random_direction()])
-				print("SPAWNING ", j, " IN DIRECTION", NextSpawn[-1][1])
 				break
 			else:
 				offset += CAR_PROBS[j]
@@ -95,51 +100,56 @@ func spawn_on_timeout():
 		var car = CarDir[0]
 		var dir = CarDir[1]
 		var spawn_point = SpawnDict[dir]
+		var mid_point = MidDict[dir]
 		var end_point = EndDict[dir]
 		var new_car = car.instantiate()
-		new_car.global_position = spawn_point.global_position
+		
 		spawn_point.get_parent().add_child(new_car)
+		new_car.global_position = spawn_point.global_position
 		new_car.look_at(end_point.global_position, Vector3.UP)
+		print("end_point: ", end_point.global_position)
+		new_car.mid_point = mid_point.global_position
+		new_car.end_point = end_point.global_position
+		
+		if(dir == CURR_TRAFFIC_DIR):
+			new_car.curr_state = Car.CAR_STATE.TO_END
+		
+		if CarGroups[dir].size():
+			new_car.front_car = CarGroups[dir][-1]
+
 		CarGroups[dir].append(new_car)
 	decide_random_spawn()
 
-
-func _process(delta):
-	if CURR_TRAFFIC_DIR == StateEnums.Direction.NONE:
-		return
-	var end = EndDict[CURR_TRAFFIC_DIR]
-	for car in CarGroups[CURR_TRAFFIC_DIR]:
-		if car.global_position.distance_to(end.global_position) < 1.0:
-			car.queue_free()
-			CarGroups[CURR_TRAFFIC_DIR].erase(car)
-		#else:
-		var velocity = car.global_position.direction_to(end.global_position) * car.speed
-		car.global_position += velocity * delta
-
-
 func handle_light_change(new_dir):
-	if CURR_TRAFFIC_DIR == StateEnums.Direction.NONE:
-		CURR_TRAFFIC_DIR = new_dir
-		RoadDict[CURR_TRAFFIC_DIR].run_cars = true
-	else:	
-		RoadDict[CURR_TRAFFIC_DIR].run_cars = false
-		CURR_TRAFFIC_DIR = new_dir
-		RoadDict[CURR_TRAFFIC_DIR].run_cars = true
+	for prev_car in CarGroups[CURR_TRAFFIC_DIR]:
+		if !prev_car.passed_mid:
+			prev_car.curr_state = Car.CAR_STATE.TO_MID
 	
+	CURR_TRAFFIC_DIR = new_dir
+	var front_car = null
+	for i in range(CarGroups[CURR_TRAFFIC_DIR].size()):
+		var car = CarGroups[CURR_TRAFFIC_DIR][i]
+		if i == 0:
+			front_car = car
+		if i > 0:
+			car.front_car = front_car
+			front_car = car
+		print("before state", car.curr_state)
+		car.curr_state = Car.CAR_STATE.TO_END
+		print("after state", car.curr_state)
 
-#func _process(delta):
+func _process(_delta):
+	var to_free = []
+	for dir in StateEnums.Direction.values():
+		if dir == StateEnums.Direction.NONE:
+			return
+		for i in range(CarGroups[dir].size()):
+			var car = CarGroups[dir][i]
+			var end = EndDict[dir].global_position
+			if car.global_position.distance_to(end) < 0.1:
+				car.queue_free()
+				to_free.append(i)
+		for index in to_free:
+			CarGroups[dir].remove_at(index)
+			
 	
-	
-	
-
-#func _input(event: InputEvent) -> void:
-	#if event is InputEventKey and event.is_released() and ROAD_DIRECTION == CURR_TRAFFIC_DIR:
-		#match event.keycode:
-			#KEY_E:
-				#RUN_CARS = !RUN_CARS
-			#KEY_W:
-				#SPAWN_CARS = !SPAWN_CARS
-				#if SPAWN_CARS:
-					#TIMER.start(1.0)
-				#else:
-					#TIMER.stop()

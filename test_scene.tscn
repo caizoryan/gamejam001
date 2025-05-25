@@ -1,40 +1,16 @@
-[gd_scene load_steps=19 format=3 uid="uid://dwjx753r00y5e"]
+[gd_scene load_steps=16 format=3 uid="uid://dwjx753r00y5e"]
 
-[ext_resource type="PackedScene" uid="uid://dy0ywsrfkq6bc" path="res://car.tscn" id="1_ia1lp"]
+[ext_resource type="PackedScene" uid="uid://rax2wk0j3lg0" path="res://car.tscn" id="1_ia1lp"]
 [ext_resource type="PackedScene" uid="uid://bc067s5j6kck0" path="res://marker.tscn" id="1_sasra"]
 [ext_resource type="PackedScene" uid="uid://b4qsje7cd1cav" path="res://trafficlight.tscn" id="2_sasra"]
 [ext_resource type="PackedScene" uid="uid://11l6gq0gsqrm" path="res://road.tscn" id="4_coq8p"]
 [ext_resource type="Script" uid="uid://ojr6fjgro7d2" path="res://traffic_main.gd" id="4_vr1i5"]
-[ext_resource type="Script" uid="uid://c4os3vhaeqgol" path="res://pedestrian_follow.gd" id="7_buypi"]
-[ext_resource type="PackedScene" uid="uid://cktr3xk3eikwy" path="res://pedestrian.tscn" id="8_buypi"]
-[ext_resource type="PackedScene" uid="uid://bxbljqj6sjjnw" path="res://assets/testscene02.glb" id="8_njel3"]
+[ext_resource type="Script" uid="uid://blf5rlxnsfsjf" path="res://spawner.gd" id="7_buypi"]
+[ext_resource type="PackedScene" uid="uid://dwrl5vgowu4sk" path="res://assets/testscene02.glb" id="8_njel3"]
+[ext_resource type="PackedScene" uid="uid://baiqbj4qj3lyw" path="res://green_car.tscn" id="8_vr1i5"]
 [ext_resource type="Texture2D" uid="uid://dgs6i11kpxa5d" path="res://assets/testscene01_RGB.png" id="9_njel3"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_coq8p"]
-
-[sub_resource type="Curve3D" id="Curve3D_coq8p"]
-bake_interval = 0.25
-_data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 24.3837, 0, 0, 0, 0, 0, 0, 0, 0, -36.7208),
-"tilts": PackedFloat32Array(0, 0)
-}
-point_count = 2
-
-[sub_resource type="Curve3D" id="Curve3D_2nij2"]
-bake_interval = 0.1
-_data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 16.2556, 0, -1.18016, 0, 0, 0, 0, 0, 0, 13.243, 0, 0.057, 0, 0, 0, 0, 0, 0, 10.281, 0, -1.111, 0, 0, 0, 0, 0, 0, 8.425, 0, -1.967, 0, 0, 0, 0, 0, 0, 5.394, 0, -2.991, 0, 0, 0, 0, 0, 0, 3.582, 0, -3.603, 0, 0, 0, 0, 0, 0, 3.192, 0, -5.307, 0, 0, 0, 0, 0, 0, 3.611, 0, -8.179, 0, 0, 0, 0, 0, 0, 4.551, 0, -11.288, 0, 0, 0, 0, 0, 0, 6.002, 0, -14.195),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-}
-point_count = 10
-
-[sub_resource type="Curve3D" id="Curve3D_njel3"]
-closed = true
-_data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0.839, 0, -7.67018, 0, 0, 0, 0, 0, 0, 0.839, 0, 0.523251),
-"tilts": PackedFloat32Array(0, 0)
-}
-point_count = 2
 
 [sub_resource type="LabelSettings" id="LabelSettings_buypi"]
 font_size = 38
@@ -107,40 +83,6 @@ transform = Transform3D(-0.358654, 0.755116, -0.548788, 0.0854545, 0.611991, 0.7
 light_energy = 0.298
 directional_shadow_split_1 = 0.223
 
-[node name="HorizontalRoad" parent="." node_paths=PackedStringArray("TRAFFIC_SYSTEM") instance=ExtResource("4_coq8p")]
-TRAFFIC_SYSTEM = NodePath("../TrafficSystem")
-
-[node name="Path3D" parent="HorizontalRoad" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-curve = SubResource("Curve3D_coq8p")
-
-[node name="VerticalRoad" parent="." node_paths=PackedStringArray("TRAFFIC_SYSTEM") instance=ExtResource("4_coq8p")]
-TRAFFIC_SYSTEM = NodePath("../TrafficSystem")
-ROAD_DIRECTION = 1
-
-[node name="Path3D" parent="VerticalRoad" index="0"]
-transform = Transform3D(0.9057, 0, 0, 0, 0.9057, 0, 0, 0, 0.9057, -0.163134, 0.762042, 0.994995)
-curve = SubResource("Curve3D_2nij2")
-
-[node name="Car" parent="." instance=ExtResource("1_ia1lp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.77724, 0, 13.0851)
-
-[node name="CollisionShape3D" parent="Car" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0491695, 0.619167, -0.246745)
-
-[node name="Path3D" type="Path3D" parent="."]
-transform = Transform3D(-0.0169463, 0, -0.999856, 0, 1, 0, 0.999856, 0, -0.0169463, -4.04327, 0, 3.38513)
-curve = SubResource("Curve3D_njel3")
-
-[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(0.999997, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0.839, 0, -7.67018)
-rotation_mode = 0
-script = ExtResource("7_buypi")
-
-[node name="Pedestrian" parent="Path3D/PathFollow3D" node_paths=PackedStringArray("winmessage") instance=ExtResource("8_buypi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0349112, -1.57884, 1.17187)
-winmessage = NodePath("../../../Win")
-
 [node name="Win" type="Control" parent="."]
 visible = false
 layout_mode = 3
@@ -164,6 +106,71 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0598951, 0.17139, -0.115836
 environment = SubResource("Environment_vr1i5")
 camera_attributes = SubResource("CameraAttributesPractical_njel3")
 
-[editable path="HorizontalRoad"]
-[editable path="VerticalRoad"]
-[editable path="Car"]
+[node name="RoadParent" type="Node3D" parent="." node_paths=PackedStringArray("SpawnTimer", "TrafficLight", "LeftRoad", "RightRoad", "UpRoad", "DownRoad", "Win")]
+script = ExtResource("7_buypi")
+SpawnTimer = NodePath("Timer")
+TrafficLight = NodePath("../TrafficSystem")
+LeftRoad = NodePath("LeftRoad")
+RightRoad = NodePath("RightRoad")
+UpRoad = NodePath("UpRoad")
+DownRoad = NodePath("DownRoad")
+Win = NodePath("../Win")
+CARS = Array[PackedScene]([ExtResource("1_ia1lp"), ExtResource("8_vr1i5")])
+CAR_PROBS = Array[float]([0.8, 0.2])
+
+[node name="DownRoad" parent="RoadParent" instance=ExtResource("4_coq8p")]
+Facing = 3
+
+[node name="SpawnPoint" parent="RoadParent/DownRoad" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5807, 0, 1.19647)
+
+[node name="MidPoint" parent="RoadParent/DownRoad" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.556, 0, 1.196)
+
+[node name="EndPoint" parent="RoadParent/DownRoad" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.3882, 0, 1.196)
+
+[node name="UpRoad" parent="RoadParent" instance=ExtResource("4_coq8p")]
+Facing = 2
+
+[node name="SpawnPoint" parent="RoadParent/UpRoad" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.9429, 0, -1.209)
+
+[node name="MidPoint" parent="RoadParent/UpRoad" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.07, 0, -1.209)
+
+[node name="EndPoint" parent="RoadParent/UpRoad" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.65148, 0, -1.2088)
+
+[node name="RightRoad" parent="RoadParent" instance=ExtResource("4_coq8p")]
+Facing = 1
+
+[node name="SpawnPoint" parent="RoadParent/RightRoad" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0, 14.6934)
+
+[node name="MidPoint" parent="RoadParent/RightRoad" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0, 4.17)
+
+[node name="EndPoint" parent="RoadParent/RightRoad" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0, -9.15519)
+
+[node name="LeftRoad" parent="RoadParent" instance=ExtResource("4_coq8p")]
+
+[node name="SpawnPoint" parent="RoadParent/LeftRoad" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.38089, 0, -8.51107)
+
+[node name="MidPoint" parent="RoadParent/LeftRoad" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.381, 0, -4.222)
+
+[node name="EndPoint" parent="RoadParent/LeftRoad" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.381, 0, 10.4716)
+
+[node name="Timer" type="Timer" parent="RoadParent"]
+one_shot = true
+
+[connection signal="timeout" from="RoadParent/Timer" to="RoadParent" method="spawn_on_timeout"]
+
+[editable path="RoadParent/DownRoad"]
+[editable path="RoadParent/UpRoad"]
+[editable path="RoadParent/RightRoad"]
+[editable path="RoadParent/LeftRoad"]
