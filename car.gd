@@ -5,7 +5,7 @@ enum CAR_STATE {TO_MID, TO_END}
 @export var max_speed: float = 5.0
 @export var horn: AudioStreamPlayer3D
 
-@export var patience: float = 10
+@export var max_patience: float = 50
 @export var follow_distance:float = 3.5
 
 @export var progress : TextureProgressBar
@@ -17,6 +17,7 @@ enum CAR_STATE {TO_MID, TO_END}
 
 var curr_speed = max_speed
 var curr_state = CAR_STATE.TO_MID
+var curr_patience = 0.0
 var mid_point = null
 var end_point = null
 var front_car = null
@@ -44,6 +45,15 @@ func _physics_process(delta: float):
 	var direction = -transform.basis.z.normalized() # Local forward vector
 	velocity = direction * curr_speed
 	move_and_slide()
+	
+	if curr_speed == 0:
+		print("curr_patience is ", curr_patience)
+		curr_patience += 0.1
+	else:
+		curr_patience = 0
+	
+	if curr_patience > max_patience:
+		print("game lost")
 
 func play_horn():
 	if (!horn.playing): horn.play()
@@ -90,7 +100,3 @@ func _process(delta: float) -> void:
 		pos.y -= 50
 		if (progress.value > 83.): pos = oscillate(pos)
 		progress.set_position(pos)
-
-func patience_timeout():
-	print("game lost!")
-	
