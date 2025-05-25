@@ -22,6 +22,8 @@ var end_point = null
 var front_car = null
 var passed_mid = false
 
+signal increase_score
+
 func _physics_process(delta: float):
 	var goal = mid_point
 	if curr_state == CAR_STATE.TO_END:
@@ -35,6 +37,8 @@ func _physics_process(delta: float):
 		curr_speed = 0
 	
 	if global_position.distance_to(mid_point) < 0.1:
+		if passed_mid == false:
+			increase_score.emit()
 		passed_mid = true
 
 	var direction = -transform.basis.z.normalized() # Local forward vector
