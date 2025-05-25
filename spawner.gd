@@ -63,13 +63,17 @@ func _ready():
 	var total_prob = 0
 	for probs in CAR_PROBS:
 		total_prob += probs
+		
 	if total_prob != 1.0:
 		push_error("yooo: car probs must add up to exactly 1.0") 
+		
 	elif CARS.size() != CAR_PROBS.size():
 		push_error("yoooo: the probs and car num are not equal")
+		
 	else:
 		for i in range(CARS.size()):
 			print("PROB OF CAR ", CARS[i], ": ", CAR_PROBS[i])
+			
 		decide_random_spawn()
 
 func decide_random_spawn():
