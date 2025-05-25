@@ -43,7 +43,7 @@ func _process(delta: float) -> void:
 			active = !active
 			
 		if (active):
-			activated.emit() 
+			activated.emit(self.global_position) 
 			set_mesh_color(highlight_color)
 
 func set_mesh_color(color: Color)->void:

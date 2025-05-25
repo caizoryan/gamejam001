@@ -1,7 +1,7 @@
 extends GridContainer
 
 @export var marker: CollisionShape3D
-
+@export var camera: Camera3D
 # Buttons are instantiated in script
 var buttons = [ 
 	{ "name": "close", "action": close_menu},
@@ -42,8 +42,8 @@ func create_btn(item)->Button:
 	btn.connect("pressed", item.action)
 	return btn
 
-func open_menu()->void:
-	var pos = get_viewport().get_mouse_position()
+func open_menu(_pos: Vector3)->void:
+	var pos = camera.unproject_position(_pos)
 	var rect = self.get_rect()
 	pos.x -= rect.size.x/2
 	pos.y -= rect.size.y-25

@@ -7,8 +7,12 @@ size = Vector3(1, 1.58594, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_28ad3"]
 
-[node name="Pedestrian" type="Area3D"]
+[node name="Pedestrian" type="Area3D" node_paths=PackedStringArray("top")]
 script = ExtResource("1_y5q06")
+top = NodePath("top")
+
+[node name="top" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.79994, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.75764, 0)

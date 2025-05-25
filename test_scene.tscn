@@ -1,13 +1,14 @@
-[gd_scene load_steps=23 format=3 uid="uid://dwjx753r00y5e"]
+[gd_scene load_steps=25 format=3 uid="uid://dwjx753r00y5e"]
 
 [ext_resource type="PackedScene" uid="uid://dy0ywsrfkq6bc" path="res://pink_car.tscn" id="1_ia1lp"]
-[ext_resource type="PackedScene" uid="uid://bc067s5j6kck0" path="res://marker.tscn" id="1_sasra"]
 [ext_resource type="PackedScene" uid="uid://b4qsje7cd1cav" path="res://trafficlight.tscn" id="2_sasra"]
 [ext_resource type="PackedScene" uid="uid://11l6gq0gsqrm" path="res://road.tscn" id="4_coq8p"]
 [ext_resource type="Script" uid="uid://ojr6fjgro7d2" path="res://traffic_main.gd" id="4_vr1i5"]
 [ext_resource type="Script" uid="uid://c4os3vhaeqgol" path="res://pedestrian_follow.gd" id="7_buypi"]
+[ext_resource type="Texture2D" uid="uid://bgbjbcqe82tc0" path="res://assets/buttons/1x/prog_bg.png" id="7_k6its"]
 [ext_resource type="FontFile" uid="uid://bhmn30vnis3g6" path="res://assets/dep.otf" id="8_0k8yu"]
 [ext_resource type="PackedScene" uid="uid://cktr3xk3eikwy" path="res://pedestrian.tscn" id="8_buypi"]
+[ext_resource type="Texture2D" uid="uid://c28cbs4608ipr" path="res://assets/buttons/1x/prog_tex_med.png" id="8_k6its"]
 [ext_resource type="PackedScene" uid="uid://dwrl5vgowu4sk" path="res://assets/testscene02.glb" id="8_njel3"]
 [ext_resource type="Script" uid="uid://cwyp1qopy50w4" path="res://start.gd" id="8_vr1i5"]
 [ext_resource type="Script" uid="uid://bugtf2ddmbo5x" path="res://score.gd" id="9_hiucn"]
@@ -15,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://ce11q7lh6ia8c" path="res://assets/buttons/1x/start.png" id="9_oo8pe"]
 [ext_resource type="Texture2D" uid="uid://d24vjpc8wccob" path="res://assets/buttons/1x/start_hovered.png" id="10_4gito"]
 [ext_resource type="Texture2D" uid="uid://s5b43pe32gdi" path="res://assets/buttons/1x/score.png" id="10_k6its"]
+[ext_resource type="AudioStream" uid="uid://bfaojxooaqbe5" path="res://assets/background.mp3" id="16_hiucn"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_coq8p"]
 
@@ -49,9 +51,6 @@ dof_blur_far_enabled = true
 dof_blur_far_distance = 0.46
 
 [node name="Tutorial" type="Node3D"]
-
-[node name="LightMarker" parent="." instance=ExtResource("1_sasra")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00826108, 0, -0.0247779)
 
 [node name="Camera" type="Camera3D" parent="."]
 transform = Transform3D(0.569906, -0.305161, 0.762944, -0.00635496, 0.926819, 0.375454, -0.821685, -0.218823, 0.526261, 23.5276, 13.923, 16.5398)
@@ -106,7 +105,7 @@ script = null
 [node name="Car" parent="." instance=ExtResource("1_ia1lp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.77724, 0, 13.0851)
 
-[node name="CollisionShape3D" parent="Car" index="1"]
+[node name="CollisionShape3D" parent="Car" index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0491695, 0.619167, -0.246745)
 
 [node name="Path3D" type="Path3D" parent="."]
@@ -118,27 +117,33 @@ transform = Transform3D(0.999997, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0.839, 0
 rotation_mode = 0
 script = ExtResource("7_buypi")
 
-[node name="Pedestrian" parent="Path3D/PathFollow3D" node_paths=PackedStringArray("winmessage") instance=ExtResource("8_buypi")]
+[node name="Pedestrian" parent="Path3D/PathFollow3D" node_paths=PackedStringArray("winmessage", "progress", "camera") instance=ExtResource("8_buypi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0349112, -1.57884, 1.17187)
 winmessage = NodePath("../../../Win")
+progress = NodePath("../../../Win/TextureProgressBar")
+camera = NodePath("../../../Camera")
 
 [node name="Win" type="Control" parent="."]
 visible = false
 layout_mode = 3
 anchors_preset = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 221.0
+offset_bottom = 61.0
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Win"]
+layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-
-[node name="Label" type="Label" parent="Win"]
-layout_mode = 0
-offset_left = 846.0
-offset_top = 539.0
-offset_right = 1043.0
-offset_bottom = 592.0
-text = "YOU WON!"
-label_settings = SubResource("LabelSettings_buypi")
+step = 0.01
+value = 25.0
+fill_mode = 4
+texture_under = ExtResource("7_k6its")
+texture_progress = ExtResource("8_k6its")
 
 [node name="score" type="Control" parent="." node_paths=PackedStringArray("label")]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -156,6 +161,7 @@ texture = ExtResource("10_k6its")
 expand_mode = 1
 
 [node name="Label" type="Label" parent="score"]
+layout_mode = 0
 offset_left = 233.0
 offset_top = 72.0
 offset_right = 430.0
@@ -163,8 +169,7 @@ offset_bottom = 125.0
 text = "0"
 label_settings = SubResource("LabelSettings_buypi")
 
-[node name="start" type="Control" parent="." node_paths=PackedStringArray("start_button", "camera")]
-visible = false
+[node name="start" type="Control" parent="." node_paths=PackedStringArray("start_button", "camera", "score")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -172,15 +177,18 @@ offset_bottom = 40.0
 script = ExtResource("8_vr1i5")
 start_button = NodePath("TextureButton")
 camera = NodePath("../Camera")
+score = NodePath("../score")
 
 [node name="TextureButton" type="TextureButton" parent="start"]
 layout_mode = 0
-offset_left = 708.0
-offset_top = 495.0
-offset_right = 1203.0
-offset_bottom = 591.0
+offset_left = 825.0
+offset_top = 471.0
+offset_right = 1156.0
+offset_bottom = 633.0
 texture_normal = ExtResource("9_oo8pe")
 texture_hover = ExtResource("10_4gito")
+ignore_texture_size = true
+stretch_mode = 4
 
 [node name="Scene" parent="." instance=ExtResource("8_njel3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0598951, 0.17139, -0.115836)
@@ -190,6 +198,9 @@ environment = SubResource("Environment_vr1i5")
 camera_attributes = SubResource("CameraAttributesPractical_njel3")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_hiucn")
+volume_db = -14.858
+autoplay = true
 
 [editable path="HorizontalRoad"]
 [editable path="VerticalRoad"]
