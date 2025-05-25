@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cmcli2g85x1ev"]
+[gd_scene load_steps=3 format=3 uid="uid://clq783fimkxgj"]
 
 [ext_resource type="Script" uid="uid://jy2tmm5wuvwm" path="res://car.gd" id="1_5vx48"]
 [ext_resource type="PackedScene" uid="uid://cypjqtxwof0fw" path="res://assets/car_pink.glb" id="2_ef01i"]
 
-[node name="Car" type="CharacterBody3D" node_paths=PackedStringArray("progress", "top")]
+[node name="Car2" type="CharacterBody3D" node_paths=PackedStringArray("progress", "top")]
 script = ExtResource("1_5vx48")
 progress = NodePath("TextureProgressBar")
 top = NodePath("Node3D")

@@ -14,7 +14,7 @@
 [ext_resource type="FontFile" uid="uid://bhmn30vnis3g6" path="res://assets/dep.otf" id="8_hiucn"]
 [ext_resource type="PackedScene" uid="uid://dwrl5vgowu4sk" path="res://assets/testscene02.glb" id="8_njel3"]
 [ext_resource type="Texture2D" uid="uid://dgs6i11kpxa5d" path="res://assets/testscene01_RGB.png" id="9_njel3"]
-[ext_resource type="PackedScene" uid="uid://cmcli2g85x1ev" path="res://car_green.tscn" id="14_0k8yu"]
+[ext_resource type="PackedScene" uid="uid://58qh3b5fagrj" path="res://car_duplicate.tscn" id="14_0k8yu"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_coq8p"]
 

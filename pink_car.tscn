@@ -8,7 +8,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_7822p"]
 size = Vector3(1.36035, 1, 2.51997)
 
-[node name="Car" type="CharacterBody3D" node_paths=PackedStringArray("progress", "top")]
+[node name="Car2" type="CharacterBody3D" node_paths=PackedStringArray("progress", "top")]
 script = ExtResource("1_ebywg")
 progress = NodePath("patience_bar")
 top = NodePath("top")
