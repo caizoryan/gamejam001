@@ -134,22 +134,20 @@ func handle_light_change(new_dir):
 		if i > 0:
 			car.front_car = front_car
 			front_car = car
-		print("before state", car.curr_state)
 		car.curr_state = Car.CAR_STATE.TO_END
-		print("after state", car.curr_state)
 
-func _process(_delta):
-	var to_free = []
-	for dir in StateEnums.Direction.values():
-		if dir == StateEnums.Direction.NONE:
-			return
-		for i in range(CarGroups[dir].size()):
-			var car = CarGroups[dir][i]
-			var end = EndDict[dir].global_position
-			if car.global_position.distance_to(end) < 0.1:
-				car.queue_free()
-				to_free.append(i)
-		for index in to_free:
-			CarGroups[dir].remove_at(index)
+#func _process(_delta):
+	#var to_free = []
+	#for dir in StateEnums.Direction.values():
+		#if dir == StateEnums.Direction.NONE:
+			#return
+		#for i in range(CarGroups[dir].size()):
+			#var car = CarGroups[dir][i]
+			#var end = EndDict[dir].global_position
+			#if car.global_position.distance_to(end) < 0.1:
+				#car.queue_free()
+				#to_free.append(i)
+		#for index in to_free:
+			#CarGroups[dir].remove_at(index)
 			
 	
