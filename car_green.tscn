@@ -1,20 +1,41 @@
-[gd_scene load_steps=3 format=3 uid="uid://xc74svh2ccr1"]
+[gd_scene load_steps=7 format=3 uid="uid://ct3yg30tpjuj8"]
 
 [ext_resource type="Script" uid="uid://jy2tmm5wuvwm" path="res://car.gd" id="1_5vx48"]
+[ext_resource type="AudioStream" uid="uid://cfah13xvh8mvy" path="res://assets/car_audio.mp3" id="2_2lbve"]
 [ext_resource type="PackedScene" uid="uid://cypjqtxwof0fw" path="res://assets/car_pink.glb" id="2_ef01i"]
+[ext_resource type="AudioStream" uid="uid://csbep6n8ukw77" path="res://horn.mp3" id="3_phiea"]
+[ext_resource type="Texture2D" uid="uid://bgbjbcqe82tc0" path="res://assets/buttons/1x/prog_bg.png" id="5_leh63"]
+[ext_resource type="Texture2D" uid="uid://c28cbs4608ipr" path="res://assets/buttons/1x/prog_tex_med.png" id="6_r6any"]
 
-[node name="Car2" type="CharacterBody3D" node_paths=PackedStringArray("progress", "top")]
+[node name="Car" type="CharacterBody3D" node_paths=PackedStringArray("horn", "progress", "top", "car_timer")]
 script = ExtResource("1_5vx48")
+horn = NodePath("horn")
 progress = NodePath("TextureProgressBar")
 top = NodePath("Node3D")
+car_timer = NodePath("Timer")
+
+[node name="moving" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_2lbve")
+
+[node name="horn" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_phiea")
+volume_db = 26.435
 
 [node name="skin" parent="." instance=ExtResource("2_ef01i")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.28067, -0.121017)
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+visible = false
 offset_right = 40.0
 offset_bottom = 40.0
+step = 0.01
+fill_mode = 4
+texture_under = ExtResource("5_leh63")
+texture_progress = ExtResource("6_r6any")
+
+[node name="Timer" type="Timer" parent="."]
 
 [editable path="skin"]

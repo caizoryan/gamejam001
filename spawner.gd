@@ -115,6 +115,8 @@ func spawn_on_timeout():
 		print("end_point: ", end_point.global_position)
 		new_car.mid_point = mid_point.global_position
 		new_car.end_point = end_point.global_position
+		new_car.car_timer.start(new_car.patience)
+		print("timer started")
 		
 		if(dir == CURR_TRAFFIC_DIR):
 			new_car.curr_state = Car.CAR_STATE.TO_END
@@ -130,6 +132,7 @@ func handle_light_change(new_dir):
 	for prev_car in CarGroups[CURR_TRAFFIC_DIR]:
 		if !prev_car.passed_mid:
 			prev_car.curr_state = Car.CAR_STATE.TO_MID
+			prev_car.car_timer.start(prev_car.patience)
 	
 	CURR_TRAFFIC_DIR = new_dir
 	var front_car = null
@@ -141,6 +144,7 @@ func handle_light_change(new_dir):
 			car.front_car = front_car
 			front_car = car
 		car.curr_state = Car.CAR_STATE.TO_END
+		car.car_timer.stop()
 
 #func _process(_delta):
 	#var to_free = []
