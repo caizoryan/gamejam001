@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dwjx753r00y5e"]
+[gd_scene load_steps=19 format=3 uid="uid://dwjx753r00y5e"]
 
 [ext_resource type="PackedScene" uid="uid://dy0ywsrfkq6bc" path="res://pink_car.tscn" id="1_ia1lp"]
 [ext_resource type="PackedScene" uid="uid://bc067s5j6kck0" path="res://marker.tscn" id="1_sasra"]
@@ -8,7 +8,9 @@
 [ext_resource type="Script" uid="uid://c4os3vhaeqgol" path="res://pedestrian_follow.gd" id="7_buypi"]
 [ext_resource type="PackedScene" uid="uid://cktr3xk3eikwy" path="res://pedestrian.tscn" id="8_buypi"]
 [ext_resource type="PackedScene" uid="uid://dwrl5vgowu4sk" path="res://assets/testscene02.glb" id="8_njel3"]
+[ext_resource type="Script" uid="uid://cwyp1qopy50w4" path="res://start.gd" id="8_vr1i5"]
 [ext_resource type="Texture2D" uid="uid://dgs6i11kpxa5d" path="res://assets/testscene01_RGB.png" id="9_njel3"]
+[ext_resource type="Texture2D" uid="uid://buuchvchgrx2o" path="res://assets/buttons/start.png" id="9_rpuu0"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_coq8p"]
 
@@ -50,7 +52,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00826108, 0, -0.0247779)
 [node name="Camera" type="Camera3D" parent="."]
 transform = Transform3D(0.569906, -0.305161, 0.762944, -0.00635496, 0.926819, 0.375454, -0.821685, -0.218823, 0.526261, 23.5276, 13.923, 16.5398)
 projection = 1
-size = 18.589
+size = 10.0
 near = 1.927
 far = 869.15
 
@@ -92,8 +94,10 @@ light_energy = 0.298
 directional_shadow_split_1 = 0.223
 
 [node name="HorizontalRoad" parent="." instance=ExtResource("4_coq8p")]
+script = null
 
 [node name="VerticalRoad" parent="." instance=ExtResource("4_coq8p")]
+script = null
 
 [node name="Car" parent="." instance=ExtResource("1_ia1lp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.77724, 0, 13.0851)
@@ -129,6 +133,23 @@ offset_right = 1043.0
 offset_bottom = 592.0
 text = "YOU WON!"
 label_settings = SubResource("LabelSettings_buypi")
+
+[node name="start" type="Control" parent="." node_paths=PackedStringArray("start_button", "camera")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("8_vr1i5")
+start_button = NodePath("TextureButton")
+camera = NodePath("../Camera")
+
+[node name="TextureButton" type="TextureButton" parent="start"]
+layout_mode = 0
+offset_left = 708.0
+offset_top = 495.0
+offset_right = 1203.0
+offset_bottom = 591.0
+texture_normal = ExtResource("9_rpuu0")
 
 [node name="Scene" parent="." instance=ExtResource("8_njel3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0598951, 0.17139, -0.115836)
