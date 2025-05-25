@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmcli2g85x1ev"]
+
+[ext_resource type="Script" uid="uid://jy2tmm5wuvwm" path="res://car.gd" id="1_5vx48"]
+[ext_resource type="PackedScene" uid="uid://cypjqtxwof0fw" path="res://assets/car_pink.glb" id="2_ef01i"]
+
+[node name="Car" type="CharacterBody3D" node_paths=PackedStringArray("progress", "top")]
+script = ExtResource("1_5vx48")
+progress = NodePath("TextureProgressBar")
+top = NodePath("Node3D")
+
+[node name="skin" parent="." instance=ExtResource("2_ef01i")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[editable path="skin"]

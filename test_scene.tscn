@@ -13,8 +13,8 @@
 [ext_resource type="Script" uid="uid://bugtf2ddmbo5x" path="res://score.gd" id="7_hiucn"]
 [ext_resource type="FontFile" uid="uid://bhmn30vnis3g6" path="res://assets/dep.otf" id="8_hiucn"]
 [ext_resource type="PackedScene" uid="uid://dwrl5vgowu4sk" path="res://assets/testscene02.glb" id="8_njel3"]
-[ext_resource type="PackedScene" uid="uid://baiqbj4qj3lyw" path="res://green_car.tscn" id="8_vr1i5"]
 [ext_resource type="Texture2D" uid="uid://dgs6i11kpxa5d" path="res://assets/testscene01_RGB.png" id="9_njel3"]
+[ext_resource type="PackedScene" uid="uid://cmcli2g85x1ev" path="res://car_green.tscn" id="14_0k8yu"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_coq8p"]
 
@@ -174,7 +174,7 @@ RightRoad = NodePath("RightRoad")
 UpRoad = NodePath("UpRoad")
 DownRoad = NodePath("DownRoad")
 Win = NodePath("../Win")
-CARS = Array[PackedScene]([ExtResource("1_ia1lp"), ExtResource("8_vr1i5")])
+CARS = Array[PackedScene]([ExtResource("1_ia1lp"), ExtResource("14_0k8yu")])
 CAR_PROBS = Array[float]([0.8, 0.2])
 
 [node name="DownRoad" parent="RoadParent" instance=ExtResource("4_coq8p")]
