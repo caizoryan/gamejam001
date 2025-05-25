@@ -14,7 +14,7 @@
 [ext_resource type="FontFile" uid="uid://bhmn30vnis3g6" path="res://assets/dep.otf" id="8_hiucn"]
 [ext_resource type="PackedScene" uid="uid://dwrl5vgowu4sk" path="res://assets/testscene02.glb" id="8_njel3"]
 [ext_resource type="Texture2D" uid="uid://dgs6i11kpxa5d" path="res://assets/testscene01_RGB.png" id="9_njel3"]
-[ext_resource type="PackedScene" uid="uid://58qh3b5fagrj" path="res://car_duplicate.tscn" id="14_0k8yu"]
+[ext_resource type="PackedScene" uid="uid://doy8nanivnamo" path="res://car_duplicate.tscn" id="14_0k8yu"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_coq8p"]
 
@@ -184,9 +184,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5807, 0, 1.19647)
 
 [node name="MidPoint" parent="RoadParent/DownRoad" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.556, 0, 1.196)
+visible = false
 
 [node name="EndPoint" parent="RoadParent/DownRoad" index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.3882, 0, 1.196)
+visible = false
 
 [node name="UpRoad" parent="RoadParent" instance=ExtResource("4_coq8p")]
 
@@ -195,9 +197,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.9429, 0, -1.209)
 
 [node name="MidPoint" parent="RoadParent/UpRoad" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.07, 0, -1.209)
+visible = false
 
 [node name="EndPoint" parent="RoadParent/UpRoad" index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.65148, 0, -1.2088)
+visible = false
 
 [node name="RightRoad" parent="RoadParent" instance=ExtResource("4_coq8p")]
 
@@ -206,9 +210,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0, 14.6934)
 
 [node name="MidPoint" parent="RoadParent/RightRoad" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0, 4.17)
+visible = false
 
 [node name="EndPoint" parent="RoadParent/RightRoad" index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0, -9.15519)
+visible = false
 
 [node name="LeftRoad" parent="RoadParent" instance=ExtResource("4_coq8p")]
 

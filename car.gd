@@ -4,8 +4,8 @@ enum CAR_STATE {TO_MID, TO_END}
 
 @export var max_speed: float = 5.0
 @export var patience: float = 1.0
-@export var follow_distance:float = 3.5
-# @export var horn: AudioStreamPlayer3D
+@export var follow_distance: float = 3.5
+@export var horn: AudioStreamPlayer3D
 
 @export var progress : TextureProgressBar
 @onready var camera = get_viewport().get_camera_3d()
@@ -38,8 +38,8 @@ func _physics_process(delta: float):
 	velocity = direction * curr_speed
 	move_and_slide()
 
-#func play_horn():
-	#horn.play()
+func play_horn():
+	if (!horn.playing): horn.play()
 #
 #func _input(event: InputEvent) -> void:
 	#if event is InputEventKey and event.is_released():
@@ -62,6 +62,7 @@ func oscillate(pos: Vector2) -> Vector2:
 var changed_to_red = false
 var changed_to_panic = false
 
+
 func _process(delta: float) -> void:
 	if progress.value > 30: progress.visible = true
 	if progress.value > 55. && !changed_to_red:
@@ -71,10 +72,12 @@ func _process(delta: float) -> void:
 	if progress.value > 80.:
 		progress.texture_over = load("res://assets/buttons/1x/overlay.png")
 		changed_to_panic = true
+		play_horn()
+		
 	#
 	progress.value += 0.05
 	var _pos = top.global_position
-
+	
 	if (_pos):
 		var pos = camera.unproject_position(_pos)
 		pos.y -= 50
