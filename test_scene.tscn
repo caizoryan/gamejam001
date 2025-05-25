@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dwjx753r00y5e"]
+[gd_scene load_steps=24 format=3 uid="uid://dwjx753r00y5e"]
 
 [ext_resource type="PackedScene" uid="uid://rax2wk0j3lg0" path="res://car.tscn" id="1_ia1lp"]
 [ext_resource type="PackedScene" uid="uid://bc067s5j6kck0" path="res://marker.tscn" id="1_sasra"]
@@ -14,6 +14,7 @@
 [ext_resource type="FontFile" uid="uid://bhmn30vnis3g6" path="res://assets/dep.otf" id="8_hiucn"]
 [ext_resource type="PackedScene" uid="uid://dwrl5vgowu4sk" path="res://assets/testscene02.glb" id="8_njel3"]
 [ext_resource type="Texture2D" uid="uid://dgs6i11kpxa5d" path="res://assets/testscene01_RGB.png" id="9_njel3"]
+[ext_resource type="PackedScene" uid="uid://c0aaa3kxgcjsy" path="res://assets/testscene03.glb" id="11_hiucn"]
 [ext_resource type="PackedScene" uid="uid://ct3yg30tpjuj8" path="res://car_green.tscn" id="14_0k8yu"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_coq8p"]
@@ -37,8 +38,7 @@ background_mode = 2
 sky = SubResource("Sky_njel3")
 adjustment_enabled = true
 adjustment_brightness = 1.25
-adjustment_contrast = 1.3
-adjustment_saturation = 2.41
+adjustment_saturation = 2.01
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_njel3"]
 dof_blur_far_enabled = true
@@ -160,6 +160,9 @@ label_settings = SubResource("LabelSettings_k6its")
 
 [node name="testscene02" parent="." instance=ExtResource("8_njel3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0598951, 0.17139, -0.115836)
+visible = false
+
+[node name="testscene03" parent="." instance=ExtResource("11_hiucn")]
 
 [node name="World" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_vr1i5")
