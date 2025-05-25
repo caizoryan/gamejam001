@@ -47,7 +47,6 @@ func _physics_process(delta: float):
 	move_and_slide()
 	
 	if curr_speed == 0:
-		print("curr_patience is ", curr_patience)
 		curr_patience += 0.1
 	else:
 		curr_patience = 0
@@ -81,6 +80,7 @@ var changed_to_panic = false
 
 
 func _process(delta: float) -> void:
+	
 	if progress.value > 30: progress.visible = true
 	if progress.value > 55. && !changed_to_red:
 		progress.texture_progress = load("res://assets/buttons/1x/prog_tex.png")
@@ -92,7 +92,7 @@ func _process(delta: float) -> void:
 		play_horn()
 		
 	#
-	progress.value += 0.05
+	progress.value = curr_patience / max_patience * 100
 	var _pos = top.global_position
 	
 	if (_pos):

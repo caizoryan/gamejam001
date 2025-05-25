@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://2ocujnhi363i"]
+[gd_scene load_steps=7 format=3 uid="uid://dil2lk3q320af"]
 
 [ext_resource type="Script" uid="uid://jy2tmm5wuvwm" path="res://car.gd" id="1_ebywg"]
 [ext_resource type="PackedScene" uid="uid://cypjqtxwof0fw" path="res://assets/car_pink.glb" id="2_0p4vj"]
@@ -7,7 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://csbep6n8ukw77" path="res://horn.mp3" id="3_v0hk8"]
 [ext_resource type="Texture2D" uid="uid://c28cbs4608ipr" path="res://assets/buttons/1x/prog_tex_med.png" id="4_06lh1"]
 
-[node name="Car" type="CharacterBody3D" node_paths=PackedStringArray("horn", "progress", "top", "car_timer")]
+[node name="Car3" type="CharacterBody3D" node_paths=PackedStringArray("horn", "progress", "top", "car_timer")]
 script = ExtResource("1_ebywg")
 horn = NodePath("horn")
 progress = NodePath("TextureProgressBar")
