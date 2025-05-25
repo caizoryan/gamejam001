@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ct3yg30tpjuj8"]
+[gd_scene load_steps=10 format=3 uid="uid://c7dv8dtoyldfx"]
 
 [ext_resource type="Script" uid="uid://jy2tmm5wuvwm" path="res://car.gd" id="1_5vx48"]
 [ext_resource type="AudioStream" uid="uid://cfah13xvh8mvy" path="res://assets/car_audio.mp3" id="2_2lbve"]
@@ -48,8 +48,10 @@ texture_progress = ExtResource("6_r6any")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00897217, 0.91477, -0.18985)
 shape = SubResource("BoxShape3D_leh63")
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="Area3D" type="Area3D" parent="." node_paths=PackedStringArray("car", "timer")]
 script = ExtResource("7_phiea")
+car = NodePath("..")
+timer = NodePath("../Timer")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1.42744, 0, 0, 0, 1, 0, 0, 0, 2.63479, 0, 0.968703, -0.224311)

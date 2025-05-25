@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://rax2wk0j3lg0"]
+[gd_scene load_steps=10 format=3 uid="uid://cyv5nqmji2vre"]
 
 [ext_resource type="Script" uid="uid://jy2tmm5wuvwm" path="res://car.gd" id="1_ebywg"]
 [ext_resource type="PackedScene" uid="uid://cypjqtxwof0fw" path="res://assets/car_pink.glb" id="2_0p4vj"]
@@ -44,10 +44,12 @@ texture_under = ExtResource("3_06lh1")
 texture_progress = ExtResource("4_06lh1")
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
 
-[node name="Area3D" type="Area3D" parent="." node_paths=PackedStringArray("car")]
+[node name="Area3D" type="Area3D" parent="." node_paths=PackedStringArray("car", "timer")]
 script = ExtResource("4_v0hk8")
 car = NodePath("..")
+timer = NodePath("../Timer")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1.42744, 0, 0, 0, 1, 0, 0, 0, 2.63479, 0.0160565, 0.968704, -0.172739)
