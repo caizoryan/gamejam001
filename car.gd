@@ -5,6 +5,8 @@ enum CAR_STATE {TO_MID, TO_END}
 @export var max_speed: float = 5.0
 @export var patience: float = 1.0
 @export var follow_distance:float = 3.5
+@export var horn: AudioStreamPlayer3D
+
 var curr_speed = max_speed
 var curr_state = CAR_STATE.TO_MID
 var mid_point = null
@@ -31,9 +33,6 @@ func _physics_process(delta: float):
 	var direction = -transform.basis.z.normalized() # Local forward vector
 	velocity = direction * curr_speed
 	move_and_slide()
-
-
-@export var horn: AudioStreamPlayer3D
 
 func play_horn():
 	horn.play()

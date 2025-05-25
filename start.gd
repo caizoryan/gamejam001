@@ -20,7 +20,7 @@ func done():
 	pressed = false
 	self.visible = false
 	score.visible = true
-	score._on_score(420)
+	#score._on_score(420)
 	
 func _on_press():
 	print("pressed")
