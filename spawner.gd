@@ -122,6 +122,7 @@ func spawn_on_timeout():
 		new_car.end_point = end_point.global_position
 
 		new_car.lose = Lose
+		new_car.score_ref = Score
 		new_car.connect("increase_score", Score._on_score)
 		print("timer started")
 		

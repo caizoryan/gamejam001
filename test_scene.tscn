@@ -1,6 +1,6 @@
 [gd_scene load_steps=24 format=3 uid="uid://dwjx753r00y5e"]
 
-[ext_resource type="PackedScene" uid="uid://cyv5nqmji2vre" path="res://car.tscn" id="1_ia1lp"]
+[ext_resource type="PackedScene" uid="uid://kmd16jfiere0" path="res://car.tscn" id="1_ia1lp"]
 [ext_resource type="PackedScene" uid="uid://bc067s5j6kck0" path="res://marker.tscn" id="1_sasra"]
 [ext_resource type="PackedScene" uid="uid://b4qsje7cd1cav" path="res://trafficlight.tscn" id="2_sasra"]
 [ext_resource type="PackedScene" uid="uid://11l6gq0gsqrm" path="res://road.tscn" id="4_coq8p"]
@@ -15,11 +15,14 @@
 [ext_resource type="PackedScene" uid="uid://dwrl5vgowu4sk" path="res://assets/testscene02.glb" id="8_njel3"]
 [ext_resource type="Texture2D" uid="uid://dgs6i11kpxa5d" path="res://assets/testscene01_RGB.png" id="9_njel3"]
 [ext_resource type="PackedScene" uid="uid://c0aaa3kxgcjsy" path="res://assets/testscene03.glb" id="11_hiucn"]
-[ext_resource type="PackedScene" uid="uid://c7dv8dtoyldfx" path="res://car_green.tscn" id="14_0k8yu"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_coq8p"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_k6its"]
+font = ExtResource("8_hiucn")
+font_size = 88
+
+[sub_resource type="LabelSettings" id="LabelSettings_0k8yu"]
 font = ExtResource("8_hiucn")
 font_size = 44
 
@@ -120,8 +123,51 @@ offset_bottom = 662.0
 texture_normal = ExtResource("4_rpuu0")
 texture_hover = ExtResource("5_oo8pe")
 
+[node name="Press 1" type="Label" parent="."]
+anchors_preset = -1
+anchor_right = 0.102
+anchor_bottom = 0.116
+offset_left = 1296.0
+offset_top = 657.0
+offset_right = 1296.12
+offset_bottom = 689.916
+text = "1"
+label_settings = SubResource("LabelSettings_k6its")
+
+[node name="Press 2" type="Label" parent="."]
+anchors_preset = -1
+anchor_right = 0.102
+anchor_bottom = 0.116
+offset_left = 458.0
+offset_top = 672.0
+offset_right = 458.118
+offset_bottom = 704.916
+text = "2"
+label_settings = SubResource("LabelSettings_k6its")
+
+[node name="Press 3" type="Label" parent="."]
+anchors_preset = -1
+anchor_right = 0.102
+anchor_bottom = 0.116
+offset_left = 655.0
+offset_top = 308.0
+offset_right = 655.118
+offset_bottom = 340.916
+text = "3"
+label_settings = SubResource("LabelSettings_k6its")
+
+[node name="Press 4" type="Label" parent="."]
+anchors_preset = -1
+anchor_right = 0.102
+anchor_bottom = 0.116
+offset_left = 1186.0
+offset_top = 383.0
+offset_right = 1186.12
+offset_bottom = 415.916
+text = "4"
+label_settings = SubResource("LabelSettings_k6its")
+
 [node name="Score" type="Control" parent="." node_paths=PackedStringArray("label")]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 391.0
@@ -141,14 +187,14 @@ expand_mode = 1
 [node name="Label" type="Label" parent="Score"]
 layout_mode = 1
 anchors_preset = -1
-anchor_right = 0.102
-anchor_bottom = 0.116
-offset_left = 248.0
-offset_top = 71.0
-offset_right = 248.118
-offset_bottom = 103.916
+anchor_right = 0.208
+anchor_bottom = 0.205
+offset_left = 254.0
+offset_top = 73.0
+offset_right = 212.672
+offset_bottom = 88.205
 text = "0"
-label_settings = SubResource("LabelSettings_k6its")
+label_settings = SubResource("LabelSettings_0k8yu")
 
 [node name="testscene02" parent="." instance=ExtResource("8_njel3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0598951, 0.17139, -0.115836)
@@ -171,8 +217,8 @@ DownRoad = NodePath("DownRoad")
 Win = NodePath("../Win")
 Lose = NodePath("../Lose")
 Score = NodePath("../Score")
-CARS = Array[PackedScene]([ExtResource("1_ia1lp"), ExtResource("14_0k8yu")])
-CAR_PROBS = Array[float]([0.8, 0.2])
+CARS = Array[PackedScene]([ExtResource("1_ia1lp")])
+CAR_PROBS = Array[float]([1.0])
 
 [node name="DownRoad" parent="RoadParent" instance=ExtResource("4_coq8p")]
 

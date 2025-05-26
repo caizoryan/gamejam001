@@ -10,6 +10,6 @@ func reload_scene():
 
 func _on_area_entered(area: Area3D) -> void:
 	print("area entered LOST BRO")
-	car.lose.visible = true
+	car.lose.handle_lost()
 	timer.start()
 	
