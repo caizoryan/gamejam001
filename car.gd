@@ -58,6 +58,8 @@ func reload_patience_textures():
 	changed_to_red = false
 	changed_to_panic = false
 	progress.texture_progress = load("res://assets/buttons/1x/prog_tex_med.png")
+	progress.texture_over = null
+	
 	
 func play_horn():
 	if (!horn.playing): horn.play()
@@ -102,7 +104,7 @@ func _process(delta: float) -> void:
 		changed_to_red = true
 		#
 	if progress.value > 80.:
-		progress.texture_over = load("res://assets/buttons/1x/overlay.png")
+		#progress.texture_over = load("res://assets/buttons/1x/overlay.png")
 		changed_to_panic = true
 		play_horn()
 		
